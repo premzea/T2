@@ -3,11 +3,12 @@ import java.util.Date;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import model.Species;
+import java.util.ArrayList;
 
 public class Place{
     private String name;
@@ -16,14 +17,16 @@ public class Place{
     private double area;
     private  Date openDate;
     private String community;
+    private ArrayList<Species> species;
 
-    public Place(String pName, String pType, String pPicturePath, double pArea, Date pDate, String pCommunity){
+    public Place(String pName, String pType, String pPicturePath, double pArea, Date pDate, String pCommunity, ArrayList<Species> pSpecies){
         this.name = pName;
         this.type = pType;
         this.picturePath = pPicturePath;
         this.area = pArea;
         this.name = pCommunity;
         this.openDate = pDate;
+        this.species = pSpecies;
     }
 
     public String getName(){
@@ -67,7 +70,11 @@ public class Place{
         return community;
     }
 
-    
+    public ArrayList<Species> getSpecies(){
+        return species;
+    }
+
+
     public void setName(String pName){
         this.name = pName;
     }
@@ -91,5 +98,9 @@ public class Place{
 
     public void setCommunity(String pCommunity){
         this.community = pCommunity;
+    }
+
+    public void setSpecies(ArrayList<Species> pSpecies){
+        this.species = pSpecies;
     }
 }
