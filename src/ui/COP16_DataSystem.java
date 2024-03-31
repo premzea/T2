@@ -24,11 +24,29 @@ public class COP16_DataSystem{
 
 
     public void administrativeMenu(){
-        int entry = UserInteractions.askUserInput("Enter: \n1.To enter a community \n2.To enter a place \n3.To enter or eliminate a product \n4.To enter a species \n5.To modify species data", 5);
+        int entry = UserInteractions.askUserInput("Enter: \n1.To enter a community \n2.To enter a place \n3.To enter,modify or eliminate a product \n4.To enter a species \n5.To modify species data", 5);
+        switch (entry) {
+            case 1:
+                
+                break;
+        
+            case 2:
+                break;
+            
+            case 3:
+                break;
+        } 
                 
     } 
 
     public void consultsMenu(){
         
-    } 
+    }
+    
+    public void newCommunity(){
+        System.out.println("Name: ");
+        String name = sc.nextLine();
+        System.out.println("Type 1:  ");
+        int type_num = sc.nextInt();
+    }
 }
