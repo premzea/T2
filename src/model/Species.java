@@ -24,13 +24,11 @@ public class Species{
     public String getName(){
         return name;
     }
-
     
     public String getType(){
         return type;
     }
 
-    
     public void getPicture(){
     BufferedImage image = null;
     try {

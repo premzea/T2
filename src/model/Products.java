@@ -4,14 +4,14 @@ package model;
 public class Products{
     private String name;
     private double perNatural;
-    private String type;
+    private TypeProduct type;
     private boolean handmade;
 
 
     public Products(String pName, double perNatural, String pType, boolean pHandmade){
         this.name = pName;
         this.perNatural = perNatural;
-        this.type = pType;
+        this.type = stringToEnum(pType);
         this.handmade = pHandmade;
     }
 
@@ -20,7 +20,7 @@ public class Products{
     }
 
     
-    public String getType(){
+    public TypeProduct getType(){
         return type;
     }
 
@@ -44,7 +44,7 @@ public class Products{
 
     public void setType(String pType){
         // can i make a scanner here to put in the type or does it have to be in the ui?
-        this.type = pType;
+        this.type = stringToEnum(pType);
     }
 
 
@@ -55,6 +55,10 @@ public class Products{
 
     public void setPerNatural(double pPerNatural){
         this.perNatural = pPerNatural;
+    }
+
+    public static TypeProduct stringToEnum(String tipo){
+        return TypeProduct.valueOf(tipo.toUpperCase());
     }
 
 }

@@ -1,5 +1,4 @@
 package model;
-import java.util.Date;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
@@ -12,29 +11,42 @@ import java.util.ArrayList;
 
 public class Place{
     private String name;
-    private String type;
+    private TypePlace type;
     private String picturePath;
     private double area;
-    private  Date openDate;
+    private  Dates openDate;
     private String community;
     private ArrayList<Species> species;
 
-    public Place(String pName, String pType, String pPicturePath, double pArea, Date pDate, String pCommunity, ArrayList<Species> pSpecies){
+    public Place(String pName, String pType, String pPicturePath, double pArea, int day, int month, int year, String pCommunity, ArrayList<Species> pSpecies){
         this.name = pName;
-        this.type = pType;
+        this.type = stringToEnum(pType);
         this.picturePath = pPicturePath;
         this.area = pArea;
         this.name = pCommunity;
-        this.openDate = pDate;
+        this.openDate = new Dates(day,month,year);
         this.species = pSpecies;
     }
 
+    public Place(String pName, String pType, double pArea, int day, int month, int year, String pCommunity){
+        this.name = pName;
+        this.type = stringToEnum(pType);
+        this.area = pArea;
+        this.name = pCommunity;
+        this.openDate = new Dates(day, month, year);
+        
+    }
+
+    public TypePlace stringToEnum(String tipo){
+        return TypePlace.valueOf(tipo.toUpperCase());
+    }
+    
     public String getName(){
         return name;
     }
 
     
-    public String getType(){
+    public TypePlace getType(){
         return type;
     }
 
@@ -62,7 +74,7 @@ public class Place{
         return area;
     }
 
-    public Date getDate(){
+    public Dates getDate(){
         return openDate;
     }
 
@@ -80,7 +92,7 @@ public class Place{
     }
 
     public void setType(String pType){
-        this.type = pType;
+        this.type = stringToEnum(pType);
     }
 
     public void setPicture(String pPicture){
@@ -91,7 +103,7 @@ public class Place{
         this.area= pArea;
     }
 
-    public void setDate(Date pDate){
+    public void setDate(Dates pDate){
         // do i set a date here or in ui?
         this.openDate = pDate;
     }

@@ -16,6 +16,7 @@ public class UserInteractions{
                 System.out.println("Response is not a valid option, please choose again");
             }
         }
+        sc.nextLine();
         sc.close();
         return entry;
     }
