@@ -67,11 +67,11 @@ public class COP16_DataSystem {
                 break;
 
             case 2:
-                // modifyProduct();
+                modifyCommunity();
                 break;
 
             case 3:
-                // deleteProduct();
+                deleteCommunity();
                 break;
         }
     }
@@ -85,11 +85,11 @@ public class COP16_DataSystem {
                 break;
 
             case 2:
-                // modifyProduct();
+                modifyPlace();
                 break;
 
             case 3:
-                // deleteProduct();
+                deletePlace();
                 break;
         }
     }
@@ -117,17 +117,17 @@ public class COP16_DataSystem {
     }
 
     public static void addProduct() {
-        ArrayList<String> comsNames = controller.comsToString();
-        if (comsNames.get(0) == null) {
+        ArrayList<String> placesNames = controller.comsToString();
+        if (placesNames.get(0) == null) {
             System.out.println("No communities created. Unable to add product");
         } else {
             System.out.println("\nNew Product\nAdd to which community: \n");
-            for (int i = 0; i < comsNames.size(); i++) {
-                System.out.println("(" + (i + 1) + ") " + comsNames.get(i) + "\n");
+            for (int i = 0; i < placesNames.size(); i++) {
+                System.out.println("(" + (i + 1) + ") " + placesNames.get(i) + "\n");
             }
             int entry = sc.nextInt();
             sc.nextLine();
-            String nom = comsNames.get(entry - 1);
+            String nom = placesNames.get(entry - 1);
             // String comName, String pName, double perNatural, String pType, boolean
             // pHandmade
             if (controller.canAddProducts(nom)) {
@@ -153,14 +153,14 @@ public class COP16_DataSystem {
     }
 
     public static void modifyProduct() {
-        ArrayList<String> comsNames = controller.comsToString();
+        ArrayList<String> placesNames = controller.comsToString();
         System.out.println("\nModify Product\nFrom which community: \n");
-        for (int i = 0; i < comsNames.size(); i++) {
-            System.out.println("(" + (i + 1) + ") " + comsNames.get(i) + "\n");
+        for (int i = 0; i < placesNames.size(); i++) {
+            System.out.println("(" + (i + 1) + ") " + placesNames.get(i) + "\n");
         }
         int entry = sc.nextInt();
         sc.nextLine();
-        String nom = comsNames.get(entry - 1);
+        String nom = placesNames.get(entry - 1);
         boolean value = controller.hasProducts(nom);
         if (value) {
             String[] placesNameStrings = new String[20];
@@ -225,14 +225,14 @@ public class COP16_DataSystem {
     }
 
     public static void deleteProduct() {
-        ArrayList<String> comsNames = controller.comsToString();
+        ArrayList<String> placesNames = controller.comsToString();
         System.out.println("\nDelete Product\nFrom which community: \n");
-        for (int i = 0; i < comsNames.size(); i++) {
-            System.out.println("(" + (i + 1) + ") " + comsNames.get(i) + "\n");
+        for (int i = 0; i < placesNames.size(); i++) {
+            System.out.println("(" + (i + 1) + ") " + placesNames.get(i) + "\n");
         }
         int entry = sc.nextInt();
         sc.nextLine();
-        String nom = comsNames.get(entry - 1);
+        String nom = placesNames.get(entry - 1);
         boolean value = controller.hasProducts(nom);
         if (value) {
             String[] placesNameStrings = new String[20];
@@ -257,8 +257,20 @@ public class COP16_DataSystem {
     public static void addPlace() {
         // do we make necesary the addition of a picture
         // String pName, String pType, double pArea, Date pDate, String pCommunity
-        System.out.println("New Place \nName: ");
-        String nom = sc.nextLine();
+        ArrayList<String> placesNames = controller.placesToString();
+        int validity = 0;
+        String nom = "";
+        do {
+            System.out.println("\nNew Place \nName: ");
+            nom = sc.nextLine();
+            for (int i = 0; i < placesNames.size(); i++) {
+                if (placesNames.get(i).equals(nom)) {
+                    System.out.println("That place already exists. Please add another one");
+                    i = placesNames.size() + 1;
+                    validity = 1;
+                }
+            }
+        } while (validity != 0);
         int entry = askUserInput("\nType of place \n(1) Area protegida \n(2) Parque Nacional \n(3) Privado", 3);
         String tipo = "";
         switch (entry) {
@@ -289,19 +301,22 @@ public class COP16_DataSystem {
 
         System.out.println("\nPlace added succesfully \n");
 
+        placesNames = controller.placesToString();
+
+
     }
 
     public static void addCommunity() {
-        ArrayList<String> comsNames = controller.comsToString();
+        ArrayList<String> placesNames = controller.comsToString();
         int validity = 0;
         String nom = "";
         do {
             System.out.println("\nNew Community \nName: ");
             nom = sc.nextLine();
-            for (int i = 0; i < comsNames.size(); i++) {
-                if (comsNames.get(i).equals(nom)) {
+            for (int i = 0; i < placesNames.size(); i++) {
+                if (placesNames.get(i).equals(nom)) {
                     System.out.println("That community already exists. Please add another one");
-                    i = comsNames.size() + 1;
+                    i = placesNames.size() + 1;
                     validity = 1;
                 }
             }
@@ -357,7 +372,7 @@ public class COP16_DataSystem {
         // String nomPlace, String name, String pType, int pNumber
         ArrayList<String> placesNames = controller.placesToString();
         /////////////
-        if (placesNames.get(0) == null) {
+        if (placesNames.get(0) == null){
             System.out.println("No places created. Unable to add Species");
         } else {
             System.out.println("\nNew Species\nAdd to which Place: \n");
@@ -402,7 +417,7 @@ public class COP16_DataSystem {
             speciesNames = controller.getSpeciesNames(nom);
             System.out.println("\nModify Species: \n");
             int z = 0;
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 15; i++) {
                 if (speciesNames[i] != null) {
                     System.out.println("(" + (z + 1) + ") " + speciesNames[i] + "\n");
                     z = z + 1;
@@ -495,17 +510,17 @@ public class COP16_DataSystem {
     }
 
     public static void modifyCommunity() {
-        ArrayList<String> comsNames = controller.comsToString();
-        if (comsNames.get(0) == null) {
+        ArrayList<String> placesNames = controller.comsToString();
+        if (placesNames.get(0) == null) {
             System.out.println("No communities created. Unable to modify unexisting community");
         } else {
             System.out.println("\nChoose community to modify \n");
-            for (int i = 0; i < comsNames.size(); i++) {
-                System.out.println("(" + (i + 1) + ") " + comsNames.get(i) + "\n");
+            for (int i = 0; i < placesNames.size(); i++) {
+                System.out.println("(" + (i + 1) + ") " + placesNames.get(i) + "\n");
             }
             int entry = sc.nextInt();
             sc.nextLine();
-            String nom = comsNames.get(entry - 1);
+            String nom = placesNames.get(entry - 1);
             // String pName, String pType, int pPopulation, String nameRep, String cellphone
             entry = askUserInput("\nEnter: \n1. To modify community type\n2.To not", 2);
             String tipo = null;
@@ -601,6 +616,7 @@ public class COP16_DataSystem {
                 month = askUserInput("Month: ", 12);
                 System.out.println("Year: ");
                 year = sc.nextInt();
+                sc.nextLine();
             }
 
             entry = askUserInput("\nEnter: \n1. To modify place's community \n2.To not", 2);
@@ -617,17 +633,17 @@ public class COP16_DataSystem {
     }
 
     public static void deleteCommunity() {
-        ArrayList<String> comsNames = controller.comsToString();
-        if (comsNames.get(0) == null) {
+        ArrayList<String> placesNames = controller.comsToString();
+        if (placesNames.get(0) == null) {
             System.out.println("No communities created. Unable to delete unexisting community");
         } else {
             System.out.println("\nChoose community to modify \n");
-            for (int i = 0; i < comsNames.size(); i++) {
-                System.out.println("(" + (i + 1) + ") " + comsNames.get(i) + "\n");
+            for (int i = 0; i < placesNames.size(); i++) {
+                System.out.println("(" + (i + 1) + ") " + placesNames.get(i) + "\n");
             }
             int entry = sc.nextInt();
             sc.nextLine();
-            String nom = comsNames.get(entry - 1);
+            String nom = placesNames.get(entry - 1);
             controller.deleteCommunity(nom);
             System.out.println("Community deleted succesfully");
         }

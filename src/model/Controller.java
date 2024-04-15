@@ -151,10 +151,10 @@ public class Controller {
 
     public boolean hasSpecies(String placeNom){
         boolean value;
-        Products output = null;
-        for (int i = 0; i < coms.size(); i++) {
-            if (coms.get(i).getName().equals(placeNom)) {
-                output = coms.get(i).getProducts()[0];
+        Species output = null;
+        for (int i = 0; i < places.size(); i++) {
+            if (places.get(i).getName().equals(placeNom)) {
+                output = places.get(i).getSpecies()[0];
                 i = 123;
             }
 

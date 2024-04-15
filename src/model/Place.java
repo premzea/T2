@@ -18,21 +18,11 @@ public class Place{
     private String community;
     private Species[] species = new Species[15];
 
-    public Place(String pName, String pType, String pPicturePath, double pArea, int day, int month, int year, String pCommunity, Species[] pSpecies){
-        this.name = pName;
-        this.type = stringToEnum(pType);
-        this.picturePath = pPicturePath;
-        this.area = pArea;
-        this.name = pCommunity;
-        this.openDate = new Dates(day,month,year);
-        this.species = pSpecies;
-    }
-
     public Place(String pName, String pType, double pArea, int day, int month, int year, String pCommunity){
         this.name = pName;
         this.type = stringToEnum(pType);
         this.area = pArea;
-        this.name = pCommunity;
+        this.community = pCommunity;
         this.openDate = new Dates(day, month, year);
         
     }
