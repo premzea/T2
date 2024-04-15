@@ -139,5 +139,10 @@ public class Place{
         species[index] =  spec;
     }
 
+    public void deleteSpecies(int index){
+        // me va a quedar un hueco en la lista?
+        species[index] = null;
+    }
+
     
 }

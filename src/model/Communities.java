@@ -41,9 +41,8 @@ public class Communities{
         }
     }
 
-    public void modifyProduct(int index, String pName, double perNatural,String pType,String handmade){
-        boolean pHandmade = handmade == "true"? true: false;
-        products[index] =  new Products(pName, perNatural, pType, pHandmade);
+    public void modifyProduct(int index, String pName, double perNatural,String pType,boolean handmade){
+        products[index] =  new Products(pName, perNatural, pType, handmade);
     }
 
     public String[] getProductNames(){
@@ -104,6 +103,10 @@ public class Communities{
 
     private static TypeCom stringToEnum(String tipo){
         return TypeCom.valueOf(tipo.toUpperCase());
+    }
+
+    public void deleteProduct(int index){
+        products[index] = null;
     }
 
 }

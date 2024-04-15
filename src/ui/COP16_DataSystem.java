@@ -651,4 +651,8 @@ public class COP16_DataSystem {
         }
 
     }
+
+//necesita tener constructor el ui o puede solo static todo
+//contoller se puede conectar a todo? si no como lo de modify species y productos
+
 }

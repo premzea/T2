@@ -134,10 +134,8 @@ public class Controller {
     public void deleteProduct(String placeNom, int index) {
         for (int i = 0; i < coms.size(); i++) {
             if (coms.get(i).getName().equals(placeNom)) {
-                coms.get(i).modifyProduct(index, null);
+                coms.get(i).deleteProduct(index);
                 i = 100;
-                // should i somehow delete the product and move the whole index or just leave
-                // the null?
             }
 
         }
