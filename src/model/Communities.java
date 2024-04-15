@@ -28,6 +28,10 @@ public class Communities{
         this.rep = new Representative(nameRep, cellphone);
     }
 
+    public Representative getRepresentative(){
+        return rep;
+    }
+
     public void addProduct(String pName, double perNatural, String pType, boolean pHandmade){
         for (int i = 0; i< 20; i++){
             if (products[i] == null){
@@ -37,8 +41,9 @@ public class Communities{
         }
     }
 
-    public void modifyProduct(int index, Products product){
-        products[index] =  product;
+    public void modifyProduct(int index, String pName, double perNatural,String pType,String handmade){
+        boolean pHandmade = handmade == "true"? true: false;
+        products[index] =  new Products(pName, perNatural, pType, pHandmade);
     }
 
     public String[] getProductNames(){

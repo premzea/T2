@@ -62,14 +62,31 @@ public class Controller {
         }
     }
 
-    public void modifyProduct(String placeNom, String pName, double perNatural, String pType, String pHandmade) {
+    public void modifyProduct(String comNom, String pName, double perNatural, String pType, String pHandmade) {
+        //if decided no to change, changes it to none and thats wrong baby girl
+        int indicator = 0;
+        if(pHandmade == null){
+            indicator = 1;
+        }
         boolean handmade = pHandmade.equals("true") ? true : false;
-        Products product = new Products(pName, perNatural, pType, handmade);
+        //is there a way to do it without enetering products?
         for (int i = 0; i < coms.size(); i++) {
-            if (coms.get(i).getName().equals(placeNom)) {
+            if (coms.get(i).getName().equals(comNom)) {
                 for (int z = 0; z < 20; z++) {
                     if (coms.get(i).getProductNames()[z].equals(pName)) {
-                        coms.get(i).modifyProduct(z, product);
+                        Products originalProduct = coms.get(i).getProducts()[z];
+                        if(perNatural == -1){
+                            perNatural = originalProduct.getperNatural();
+                        }
+                        if(pType == null){
+                            pType = originalProduct.getType().name();
+                        } 
+                        if(indicator == 1){
+                            handmade = originalProduct.getHandmade();
+                        }
+                        //more efficient way to do this?
+                        Products product = new Products(pName, perNatural, pType, handmade);
+                        coms.get(i).modifyProduct(z,pName, perNatural, pType, handmade);
                         z = 21;
                     }
                     i = 100;
@@ -149,12 +166,18 @@ public class Controller {
     }
 
     public void modifySpecies(String nomPlace, String name, String pType, int pNumber){
-        Species species = new Species(name, pType, pNumber);
+        //cannot access 
         for (int i = 0; i < places.size(); i++) {
             if (coms.get(i).getName().equals(nomPlace)) {
                 for (int z = 0; z < 15; z++) {
                     if (places.get(i).getSpeciesNames()[z].equals(name)) {
-                        places.get(i).modifySpecies(z, species);
+                        if(pType == null){
+                            pType = places.get(i).getSpecies()[z].getType().name();
+                        }
+                        if(pNumber == -1){
+                            pNumber = places.get(i).getSpecies()[z].getNumber();
+                        }
+                        places.get(i).modifySpecies(z, name, pType, pNumber);
                         z = 15;
                     }
                     i = 100;
@@ -166,7 +189,7 @@ public class Controller {
     public void deleteSpecies(String placeNom, int index) {
         for (int i = 0; i < places.size(); i++) {
             if (places.get(i).getName().equals(placeNom)) {
-                places.get(i).modifySpecies(index, null);
+                places.get(i).deleteSpecies(index);
                 i = 100;
                 // should i somehow delete the product and move the whole index or just leave
                 // the null?
@@ -199,4 +222,71 @@ public class Controller {
         return value;
     }
 
+    public void modifyCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone){
+        for(int i = 0; i< coms.size(); i++){
+            if(coms.get(i).equals(pName)){
+                Communities originalCom = coms.get(i);
+                if(pType==null){
+                    pType = originalCom.getType().name();
+                }
+                if(pPopulation == -1){
+                    pPopulation = originalCom.getPopulation();
+                }
+                if(nameRep == null){
+                    nameRep = originalCom.getRepresentative().getName();
+                }
+                if(cellphone == null){
+                    cellphone = originalCom.getRepresentative().getCellphone();
+                }
+                Communities com = new Communities(pName, pType, pPopulation, nameRep, cellphone);
+                coms.remove(i); 
+                coms.add(i, com);
+                i = coms.size() +1;
+            }
+        }
+    }
+
+    public void modifyPlace(String pName, String pType, double pArea, int day, int month, int year, String pCommunity){
+        for(int i = 0; i< places.size(); i++){
+            if(places.get(i).equals(pName)){
+                Place originalPlace = places.get(i);
+                if(pType == null){
+                    pType = originalPlace.getType().name();
+                }
+                if(pArea == -1){
+                    pArea = originalPlace.getArea();
+                }
+                if(day == -1){
+                    day = originalPlace.getDate().getDay();
+                }
+                if(month == -1){
+                    month = originalPlace.getDate().getMonth();
+                }
+                if(year == -1){
+                    year = originalPlace.getDate().getYear();
+                }
+                Place place = new Place(pName, pType, pArea, day, month, year, pCommunity);
+                places.remove(i); 
+                places.add(i, place);
+                i = places.size() + 1;
+            }
+        }
+    }
+
+    public void deleteCommunity(String nomCom){
+        for(int i = 0; i< coms.size(); i++){
+            if(coms.get(i).equals(nomCom)){
+                coms.remove(i);
+                i = coms.size() + 1;
+            }}
+    }
+
+    public void deletePlace(String nomPlace){
+        for(int i = 0; i< places.size(); i++){
+            if(places.get(i).equals(nomPlace)){
+                places.remove(i);
+                i = places.size() + 1;
+            }}
+        
+    }
 }

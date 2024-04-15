@@ -16,7 +16,7 @@ public class Species{
 
     public Species(String pName, String pType, String pPicture, int pNumber){
         this.name = pName;
-        this.type = stringToEnum(pType);
+        this.type = stringtoEnum(pType);
         this.picturePath = pPicture;
         this.number = pNumber;
     }

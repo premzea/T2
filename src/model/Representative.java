@@ -17,7 +17,7 @@ public class Representative{
         this.cellphone= pCellphone;
     }
 
-    public String getPopulation(){
+    public String getName(){
         return name;
     }
 

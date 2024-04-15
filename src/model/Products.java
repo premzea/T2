@@ -30,12 +30,8 @@ public class Products{
 
 
 
-    public String getHandmade(){
-        String ret = "no";
-        if (handmade == true){
-            ret = "yes";
-        } 
-        return ret;
+    public boolean getHandmade(){
+        return handmade;
     }
 
     public void setName(String pName){

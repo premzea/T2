@@ -16,9 +16,9 @@ public class Place{
     private double area;
     private  Dates openDate;
     private String community;
-    private ArrayList<Species> species;
+    private Species[] species = new Species[15];
 
-    public Place(String pName, String pType, String pPicturePath, double pArea, int day, int month, int year, String pCommunity, ArrayList<Species> pSpecies){
+    public Place(String pName, String pType, String pPicturePath, double pArea, int day, int month, int year, String pCommunity, Species[] pSpecies){
         this.name = pName;
         this.type = stringToEnum(pType);
         this.picturePath = pPicturePath;
@@ -44,7 +44,6 @@ public class Place{
     public String getName(){
         return name;
     }
-
     
     public TypePlace getType(){
         return type;
@@ -82,10 +81,9 @@ public class Place{
         return community;
     }
 
-    public ArrayList<Species> getSpecies(){
+    public Species[] getSpecies(){
         return species;
     }
-
 
     public void setName(String pName){
         this.name = pName;
@@ -112,7 +110,34 @@ public class Place{
         this.community = pCommunity;
     }
 
-    public void setSpecies(ArrayList<Species> pSpecies){
+    public void setSpecies(Species[] pSpecies){
         this.species = pSpecies;
     }
+
+    public void addSpecies(String name, String pType, int pNumber){
+        for (int i = 0; i< 15; i++){
+            if (species[i] == null){
+                species[i] = new Species(name, pType, pNumber);
+                i = 21;
+            }
+        }
+    }
+
+    public String[] getSpeciesNames(){
+        String [] specNames = new String[15];
+        for(int i = 0; i<15; i++){
+            if(species[i]!= null){
+                specNames[i] = species[i].getName();
+            }
+        }
+        return specNames;
+    }
+
+    public void modifySpecies(int index, String name,String pType,int pNumber){
+        //change to make object here
+        Species spec = new Species(name, pType, pNumber);
+        species[index] =  spec;
+    }
+
+    
 }
