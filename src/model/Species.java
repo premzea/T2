@@ -10,22 +10,36 @@ import javax.swing.JLabel;
 
 public class Species{
     private String name;
-    private String type;
+    private TypeSpecies type;
     private String picturePath;
     private int number;
 
     public Species(String pName, String pType, String pPicture, int pNumber){
         this.name = pName;
-        this.type = pType;
+        this.type = stringToEnum(pType);
         this.picturePath = pPicture;
         this.number = pNumber;
+    }
+
+    public Species(String pName, String pType, int pNumber){
+        this.name = pName;
+        this.type = stringtoEnum(pType);
+        this.number = pNumber;
+    }
+
+    public String enumtoString(TypeSpecies type){
+        return type.name();
+    }
+
+    public TypeSpecies stringtoEnum(String type){
+        return TypeSpecies.valueOf(type.toUpperCase());
     }
 
     public String getName(){
         return name;
     }
     
-    public String getType(){
+    public TypeSpecies getType(){
         return type;
     }
 
@@ -57,7 +71,7 @@ public class Species{
     }
 
     public void setType(String pType){
-        this.type = pType;
+        this.type = stringtoEnum(pType);
     }
 
     public void setPicture(String pPicture){
