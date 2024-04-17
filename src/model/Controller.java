@@ -43,8 +43,8 @@ public class Controller {
         this.places = places;
     }
 
-    public void addCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone) {
-        Communities community = new Communities(pName, pType, pPopulation, nameRep, cellphone);
+    public void addCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem) {
+        Communities community = new Communities(pName, pType, pPopulation, nameRep, cellphone, problem);
         coms.add(community);
     }
 
@@ -220,7 +220,7 @@ public class Controller {
         return value;
     }
 
-    public void modifyCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone){
+    public void modifyCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem){
         for(int i = 0; i< coms.size(); i++){
             if(coms.get(i).equals(pName)){
                 Communities originalCom = coms.get(i);
@@ -236,7 +236,10 @@ public class Controller {
                 if(cellphone == null){
                     cellphone = originalCom.getRepresentative().getCellphone();
                 }
-                Communities com = new Communities(pName, pType, pPopulation, nameRep, cellphone);
+                if(problem == null){
+                    problem = originalCom.getProblem().name();
+                }
+                Communities com = new Communities(pName, pType, pPopulation, nameRep, cellphone,problem );
                 coms.remove(i); 
                 coms.add(i, com);
                 i = coms.size() +1;

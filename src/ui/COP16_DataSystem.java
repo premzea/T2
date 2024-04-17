@@ -11,7 +11,7 @@ public class COP16_DataSystem {
 
     public static Controller controller = new Controller();
 
-    //Todo Try and Consults Menu; And picture parameters maybe
+    // Todo Try and Consults Menu; And picture parameters maybe
 
     public static void main(String[] args) {
         int option = 3;
@@ -32,7 +32,7 @@ public class COP16_DataSystem {
 
     public static int showMenu() {
         int entry = askUserInput(
-                "Enter: \n1.To modify information in the COP16 database \n2.To consult information in the COP16 database \n3.Exit Application",
+                "\nEnter: \n1.To modify information in the COP16 database \n2.To consult information in the COP16 database \n3.Exit Application",
                 3);
         return entry;
     }
@@ -60,9 +60,96 @@ public class COP16_DataSystem {
     }
 
     public static void consultsMenu() {
+        //Consultar foto? Do we need to display it?
+        int entry = askUserInput("\nEnter: \n1. Consult place's picture and attribute\n2. Consult information from a department's community \n3.Consult communities with a same problematic \n4.Consult place with most species \n5.Consult biggest places", 5);
+        switch (entry) {
+            case 1:
+                consultPlace();
+                break;
+        
+            case 2:
+                consultPlaceCom();
+                break;
+            
+            case 3:
+                consultComsProblem();
+                break;
+
+            case 4:
+                consultPlaceMostSpecies();
+                break;
+            
+            case 5:
+                consultBiggestPlaces();
+                break;
+        }
+    }
+
+    public static void consultPlace(){
+        ArrayList<String> placesNames = controller.placesToString();
+        if (placesNames.get(0) == null) {
+            System.out.println("No places created. Unable to show unexisting places");
+        } else {
+            System.out.println("\nChoose place to consult: \n");
+            for (int i = 0; i < placesNames.size(); i++) {
+                System.out.println("(" + (i + 1) + ") " + placesNames.get(i) + "\n");
+            }
+            int entry = sc.nextInt();
+            sc.nextLine();
+            String nom = placesNames.get(entry - 1);
+            String attributes = controller.places.get(entry-1).toString();
+            System.out.println(attributes);
+        }
 
     }
 
+    public static void consultPlaceCom(){
+        ArrayList<String> placesNames = controller.placesToString();
+        if (placesNames.get(0) == null) {
+            System.out.println("No places created. Unable to show unexisting places");
+        } else {
+            System.out.println("\nChoose place to consult it's community: \n");
+            for (int i = 0; i < placesNames.size(); i++) {
+                System.out.println("(" + (i + 1) + ") " + placesNames.get(i) + "\n");
+            }
+            int entry = sc.nextInt();
+            sc.nextLine();
+            String nom = placesNames.get(entry - 1);
+            System.out.println("Community: " + controller.places.get(entry-1).getCommunity());
+        }
+    }
+
+    public static void consultBiggestPlaces(){
+        double size1 = 0;
+        double size2 = 0;
+        double size3 = 0;
+        String[] names = new String[3];
+        int index1 = 0;
+        for(int i = 0; i<controller.places.size(); i++){
+            if(controller.places.get(i).getArea() > size1){
+                size1 = controller.places.get(i).getArea();
+                index1 = i;
+                names[0] = controller.places.get(i).getName();
+            }
+        }
+        int index2 = 0;
+        for(int i = 0; i<controller.places.size(); i++){
+            if(controller.places.get(i).getArea() > size1 && i != index1){
+                size2 = controller.places.get(i).getArea();
+                index2 = i;
+                names[1] = controller.places.get(i).getName();
+            }
+        }
+        for(int i = 0; i<controller.places.size(); i++){
+            if(controller.places.get(i).getArea() > size1 && i != index1 && i != index2){
+                size3 = controller.places.get(i).getArea();
+                names[2] = controller.places.get(i).getName();
+            }
+        }
+        System.out.println("\nBiggest Places \n1." + names[0] + "  Area(km^2): " + size1 + "\n2." + names[1] + "  Area(km^2): " + size2 + "\n3." + names[2] + "Area(km^2): " + size3);
+    }
+
+    
     public static void communityOperations() {
         int entry = askUserInput(
                 "\nCommunity Menu \n(1) Enter Community \n(2) Modify Community \n(3) Eliminate Community\n",
@@ -100,7 +187,7 @@ public class COP16_DataSystem {
         }
     }
 
-    public static void productOperations() {
+    public static void productOperations(){
         int entry = askUserInput("\nProduct Menu \n(1) Enter Product \n(2) Modify Product \n(3) Eliminate Product\n",
                 3);
         switch (entry) {
@@ -118,7 +205,7 @@ public class COP16_DataSystem {
         }
     }
 
-    public static void addProduct() {
+    public static void addProduct(){
         ArrayList<String> placesNames = controller.comsToString();
         if (placesNames.get(0) == null) {
             System.out.println("No communities created. Unable to add product");
@@ -154,7 +241,8 @@ public class COP16_DataSystem {
         }
     }
 
-    public static void modifyProduct() {ArrayList<String> comsNames = controller.comsToString();
+    public static void modifyProduct(){
+        ArrayList<String> comsNames = controller.comsToString();
         System.out.println("\nModify Product\nFrom which community: \n");
         for (int i = 0; i < comsNames.size(); i++) {
             System.out.println("(" + (i + 1) + ") " + comsNames.get(i) + "\n");
@@ -225,7 +313,7 @@ public class COP16_DataSystem {
 
     }
 
-    public static void deleteProduct() {
+    public static void deleteProduct(){
         ArrayList<String> comsNames = controller.comsToString();
         System.out.println("\nDelete Product\nFrom which community: \n");
         for (int i = 0; i < comsNames.size(); i++) {
@@ -255,7 +343,7 @@ public class COP16_DataSystem {
         }
     }
 
-    public static void addPlace() {
+    public static void addPlace(){
         // do we make necesary the addition of a picture
         // String pName, String pType, double pArea, Date pDate, String pCommunity
         ArrayList<String> placesNames = controller.placesToString();
@@ -280,7 +368,7 @@ public class COP16_DataSystem {
                 break;
 
             case 2:
-                tipo = "PARQUENACIONAL";
+                tipo = "PARQUE_NACIONAL";
                 break;
 
             case 3:
@@ -304,10 +392,9 @@ public class COP16_DataSystem {
 
         placesNames = controller.placesToString();
 
-
     }
 
-    public static void addCommunity() {
+    public static void addCommunity(){
         ArrayList<String> comsNames = controller.comsToString();
         int validity = 0;
         String nom = "";
@@ -345,13 +432,31 @@ public class COP16_DataSystem {
         String nomRep = sc.nextLine();
         System.out.println("\nCellphone: ");
         String cellPhone = sc.nextLine();
+        entry = askUserInput(
+                "\nMayor Problem \n(1) Falta de Agua Potable \n(2) Falta de Hospital\n(3) Falta de Escuela \n(4) Falta acceso a la alimentacion",
+                4);
+        String problem = "";
+        switch (entry) {
+            case 1:
+                problem = "FALTA_AGUA_POTABLE";
+                break;
 
-        controller.addCommunity(nom, typeCom, population, nomRep, cellPhone);
+            case 2:
+                problem = "FALTA_HOSPITAL";
+                break;
+            case 3:
+                problem = "FALTA_ESCUELA";
+                break;
+            case 4:
+                problem = "FALTA_ACCESO_A_ALIMENTACION";
+                break;
+        }
+        controller.addCommunity(nom, typeCom, population, nomRep, cellPhone, problem);
 
         System.out.println("\nCommunity created succesfully \n");
     }
 
-    public static void speciesOperations() {
+    public static void speciesOperations(){
         int entry = askUserInput("\nSpecies Menu \n(1) Enter Species \n(2) Modify Species \n(3) Eliminate Species\n",
                 3);
         switch (entry) {
@@ -369,11 +474,11 @@ public class COP16_DataSystem {
         }
     }
 
-    public static void addSpecies() {
+    public static void addSpecies(){
         // String nomPlace, String name, String pType, int pNumber
         ArrayList<String> placesNames = controller.placesToString();
         /////////////
-        if (placesNames.get(0) == null){
+        if (placesNames.get(0) == null) {
             System.out.println("No places created. Unable to add Species");
         } else {
             System.out.println("\nNew Species\nAdd to which Place: \n");
@@ -403,7 +508,7 @@ public class COP16_DataSystem {
         }
     }
 
-    public static void modifySpecies() {
+    public static void modifySpecies(){
         ArrayList<String> placesNames = controller.placesToString();
         System.out.println("\nModify Species\nFrom which species: \n");
         for (int i = 0; i < placesNames.size(); i++) {
@@ -480,7 +585,7 @@ public class COP16_DataSystem {
         return entry;
     }
 
-    public static void deleteSpecies() {
+    public static void deleteSpecies(){
         ArrayList<String> placesNames = controller.placesToString();
         System.out.println("\nDelete Species \nFrom which place: \n");
         for (int i = 0; i < placesNames.size(); i++) {
@@ -510,7 +615,7 @@ public class COP16_DataSystem {
         }
     }
 
-    public static void modifyCommunity() {
+    public static void modifyCommunity(){
         ArrayList<String> comsNames = controller.comsToString();
         if (comsNames.get(0) == null) {
             System.out.println("No communities created. Unable to modify unexisting community");
@@ -560,16 +665,34 @@ public class COP16_DataSystem {
                     System.out.println("New Representatives Cellphone: ");
                     cellphone = sc.nextLine();
                 }
-
-                controller.modifyCommunity(nom, tipo, num, nomRep, cellphone);
+            entry = askUserInput("\nEnter: \n1. To modify community's problem \n2. To not",2);
+            if(entry == 1){
+                entry = askUserInput("\nMayor Problem \n(1) Falta de Agua Potable \n(2) Falta de Hospital\n(3) Falta de Escuela \n(4) Falta acceso a la alimentacion", 4);
+            String problem = "";
+            switch (entry) {
+                case 1:
+                problem = "FALTA_AGUA_POTABLE";
+                break;
+        
+            case 2:
+                problem = "FALTA_HOSPITAL";
+                break;
+            case 3:
+                problem = "FALTA_ESCUELA";
+                break;
+            case 4:
+                problem = "FALTA_ACCESO_A_ALIMENTACION";
+                break;
+            }
+                controller.modifyCommunity(nom, tipo, num, nomRep, cellphone, problem);
                 System.out.println("Community modified succesfully");
 
             }
 
         }
-    }
+    }}
 
-    public static void modifyPlace() {
+    public static void modifyPlace(){
         ArrayList<String> placesNames = controller.placesToString();
         if (placesNames.get(0) == null) {
             System.out.println("No places created. Unable to modify unexisting place");
@@ -593,7 +716,7 @@ public class COP16_DataSystem {
                         break;
 
                     case 2:
-                        tipo = "PARQUENACIONAL";
+                        tipo = "PARQUE_NACIONAL";
                         break;
 
                     case 3:
@@ -633,7 +756,7 @@ public class COP16_DataSystem {
 
     }
 
-    public static void deleteCommunity() {
+    public static void deleteCommunity(){
         ArrayList<String> comsNames = controller.comsToString();
         if (comsNames.get(0) == null) {
             System.out.println("No communities created. Unable to delete unexisting community");
@@ -651,8 +774,8 @@ public class COP16_DataSystem {
 
     }
 
-    public static void deletePlace() {
-        ArrayList<String> placesNames = controller.comsToString();
+    public static void deletePlace(){
+        ArrayList<String> placesNames = controller.placesToString();
         if (placesNames.get(0) == null) {
             System.out.println("No places created. Unable to delete unexisting community");
         } else {

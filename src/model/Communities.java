@@ -10,14 +10,16 @@ public class Communities{
     private Representative rep;
     private String problems;
     private Products[] products = new Products[20];
+    private TypeProblem problem; 
     
 
-    public Communities(String pName, String pType, int pPopulation, Representative pRep, String problems, Products[] pProducts){
+    public Communities(String pName, String pType, int pPopulation, Representative pRep, String problems, Products[] pProducts, String problem){
         this.name = pName;
         this.type = stringToEnum(pType);
         this.population = pPopulation;
         this.rep = pRep;
         this.products = pProducts; 
+        this.problem = stringToEnumProblem(problem);
     
     }
 
@@ -30,6 +32,14 @@ public class Communities{
 
     public Representative getRepresentative(){
         return rep;
+    }
+
+    public TypeProblem stringToEnumProblem(String problem){
+        return TypeProblem.valueOf(problem.toUpperCase());
+    }
+
+    public String enumToStringProblem(TypeProblem problem){
+        return problem.name().replace("_", " ");
     }
 
     public void addProduct(String pName, double perNatural, String pType, boolean pHandmade){
