@@ -27,6 +27,10 @@ public class Place{
         
     }
 
+    public String toString(){
+        return "Name: " + name + "\nType: " + type.name().replace("_", " ") + "\nArea(km^2): " + area + "\nDate: " + openDate.toString() + "\nCommunity:" + community;
+    }
+
     public TypePlace stringToEnum(String tipo){
         return TypePlace.valueOf(tipo.toUpperCase());
     }
@@ -130,9 +134,21 @@ public class Place{
     }
 
     public void deleteSpecies(int index){
-        // me va a quedar un hueco en la lista?
         species[index] = null;
+        Species[] newSpecies = new Species[15];
+        for(int i =0, j=0; i< species.length;i++){
+            if(i!= index){
+                newSpecies[j++] = species[i]; 
+            }
+        }
+        this.species = newSpecies;
+        // me va a quedar un hueco en la lista?
+        
     }
+
+
+
+    
 
     
 }

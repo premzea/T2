@@ -2,7 +2,7 @@ package model;
 
 public enum TypePlace{
     PROTEGIDA,
-    PARQUENACIONAL,
+    PARQUE_NACIONAL,
     PRIVADA;
  
 }

@@ -13,21 +13,22 @@ public class Communities{
     private TypeProblem problem; 
     
 
-    public Communities(String pName, String pType, int pPopulation, Representative pRep, String problems, Products[] pProducts, String problem){
-        this.name = pName;
-        this.type = stringToEnum(pType);
-        this.population = pPopulation;
-        this.rep = pRep;
-        this.products = pProducts; 
-        this.problem = stringToEnumProblem(problem);
+    // public Communities(String pName, String pType, int pPopulation, Representative pRep, String problems, Products[] pProducts, ){
+    //     this.name = pName;
+    //     this.type = stringToEnum(pType);
+    //     this.population = pPopulation;
+    //     this.rep = pRep;
+    //     this.products = pProducts; 
+        
     
-    }
+    // }
 
-    public Communities(String pName, String pType, int pPopulation, String nameRep, String cellphone){
+    public Communities(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem){
         this.name = pName;
         this.type = stringToEnum(pType);
         this.population = pPopulation;
         this.rep = new Representative(nameRep, cellphone);
+        this.problem = stringToEnumProblem(problem);
     }
 
     public Representative getRepresentative(){
@@ -40,6 +41,14 @@ public class Communities{
 
     public String enumToStringProblem(TypeProblem problem){
         return problem.name().replace("_", " ");
+    }
+
+    public String getProblem() {
+        return problem.name().replace("_", " ");
+    }
+
+    public void setProblem(TypeProblem problem) {
+        this.problem = problem;
     }
 
     public void addProduct(String pName, double perNatural, String pType, boolean pHandmade){
@@ -79,9 +88,9 @@ public class Communities{
         return population;
     }
 
-    public String getProblems(){
-        return problems;
-    }
+    // public String getProblems(){
+    //     return problems;
+    // }
 
     public Products[] getProducts(){
         return products;
@@ -117,6 +126,13 @@ public class Communities{
 
     public void deleteProduct(int index){
         products[index] = null;
+        Products[] newProducts = new Products[20];
+        for(int i =0, j=0; i< products.length;i++){
+            if(i!= index){
+                newProducts[j++] = products[i]; 
+            }
+        }
+        this.products = newProducts;
     }
 
 }

@@ -141,6 +141,14 @@ public class Controller {
         }
     }
 
+    public boolean hasPlaces(){
+        return places.get(0)!= null? true:false;
+    }
+
+    public boolean hasCommunities(){
+        return coms.get(0)!= null? true:false;
+    }
+
     public void addSpecies(String nomPlace, String name, String pType, int pNumber){
         for(int i = 0; i<places.size(); i++){
             if(nomPlace == places.get(i).getName()){
@@ -237,7 +245,7 @@ public class Controller {
                     cellphone = originalCom.getRepresentative().getCellphone();
                 }
                 if(problem == null){
-                    problem = originalCom.getProblem().name();
+                    problem = originalCom.getProblem();
                 }
                 Communities com = new Communities(pName, pType, pPopulation, nameRep, cellphone,problem );
                 coms.remove(i); 
@@ -274,6 +282,35 @@ public class Controller {
         }
     }
 
+    public boolean comOriginal(String nom){
+        
+        boolean validity = true;
+        ArrayList<String> comsNames = comsToString();
+        for (int i = 0; i < comsNames.size(); i++) {
+            if (comsNames.get(i).equals(nom)) {
+                System.out.println("That community already exists. Please add another one");
+                i = comsNames.size() + 1;
+                validity = false;
+            }
+        }
+        return validity;
+
+    }
+
+    public boolean placeOriginal(String nom){
+        ArrayList<String> placesNames = placesToString();
+        boolean validity = true;
+        for (int i = 0; i < placesNames.size(); i++) {
+            if (placesNames.get(i).equals(nom)) {
+                System.out.println("That place already exists. Please add another one");
+                i = placesNames.size() + 1;
+                validity = false;
+            }
+        }
+        return validity;
+    }
+
+
     public void deleteCommunity(String nomCom){
         for(int i = 0; i< coms.size(); i++){
             if(coms.get(i).equals(nomCom)){
@@ -289,5 +326,25 @@ public class Controller {
                 i = places.size() + 1;
             }}
         
+    }
+
+    public String getNamePlaces(){
+        ArrayList<String> placesNames = placesToString();
+        String str = "";
+            for (int i = 0; i < placesNames.size(); i++) {
+                str = str + "(" + (i + 1) + ") " + placesNames.get(i) + "\n";
+            }
+
+        return str;
+    }
+
+    public String getNamesComs(){
+        ArrayList<String> comsNames = comsToString();
+        String str= "";
+            for (int i = 0; i < comsNames.size(); i++) {
+                str = str + "(" + (i + 1) + ") " + comsNames.get(i) + "\n";
+            }
+
+        return str;
     }
 }
