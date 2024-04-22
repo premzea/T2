@@ -3,9 +3,15 @@ package model;
 import java.util.ArrayList;
 
 public class Controller {
-    public ArrayList<Communities> coms = new ArrayList<>();
+    public ArrayList<Communities> coms;
 
-    public ArrayList<Place> places = new ArrayList<>();
+    public ArrayList<Place> places;
+
+
+    public Controller(){
+        this.coms= new ArrayList<>();
+        this.places = new ArrayList<>();
+    }
 
     public ArrayList<Communities> getComs() {
         return coms;
@@ -54,6 +60,7 @@ public class Controller {
     }
 
     public void addProduct(String placeNom, String pName, double perNatural, String pType, boolean pHandmade) {
+        ////
         for (int i = 0; i < coms.size(); i++) {
             if (coms.get(i).getName() == placeNom) {
                 coms.get(i).addProduct(pName, perNatural, pType, pHandmade);
@@ -288,7 +295,6 @@ public class Controller {
         ArrayList<String> comsNames = comsToString();
         for (int i = 0; i < comsNames.size(); i++) {
             if (comsNames.get(i).equals(nom)) {
-                System.out.println("That community already exists. Please add another one");
                 i = comsNames.size() + 1;
                 validity = false;
             }
@@ -302,7 +308,6 @@ public class Controller {
         boolean validity = true;
         for (int i = 0; i < placesNames.size(); i++) {
             if (placesNames.get(i).equals(nom)) {
-                System.out.println("That place already exists. Please add another one");
                 i = placesNames.size() + 1;
                 validity = false;
             }

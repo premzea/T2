@@ -371,10 +371,13 @@ public class COP16_DataSystem {
         boolean validity = true;
         String nom = "";
         do {
+            if(!(validity)){
+                System.out.println("Place with name exists");
+            }
             System.out.println("\nNew Place \nName: ");
             nom = sc.nextLine();
             validity = controller.placeOriginal(nom);
-        } while (validity);
+        } while (!(validity));
         int entry = askUserInput("\nType of place \n(1) Area protegida \n(2) Parque Nacional \n(3) Privado", 3);
         String tipo = "";
         switch (entry) {
@@ -412,10 +415,13 @@ public class COP16_DataSystem {
         String nom = "";
         boolean validity = true;
         do {
+            if(!(validity)){
+                System.out.println("Community with name exists");
+            }
             System.out.println("\nNew Community \nName: ");
             nom = sc.nextLine();
             validity = controller.comOriginal(nom);
-        } while (validity);
+        } while (!(validity));
 
         int entry = askUserInput("\nType of community \n(1) Indigena \n(2) Razial \n(3) Afrocolombiano", 3);
         String typeCom = "";

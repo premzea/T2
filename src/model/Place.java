@@ -17,6 +17,7 @@ public class Place{
     private  Dates openDate;
     private String community;
     private Species[] species = new Species[15];
+    
 
     public Place(String pName, String pType, double pArea, int day, int month, int year, String pCommunity){
         this.name = pName;
