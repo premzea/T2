@@ -31,6 +31,10 @@ public class Community{
         this.problem = stringToEnumProblem(problem);
     }
 
+    public String toString(){
+        return "Name: " + name + "\nType: " + type.name() + "\nPopulation: " + population + "\nName Representative: " + rep.getName() + "\nCellphone Representative: " + rep.getCellphone() + "\nProblematic: " + problem.name();
+    }
+
     public Representative getRepresentative(){
         return rep;
     }
@@ -134,5 +138,7 @@ public class Community{
         }
         this.products = newProducts;
     }
+
+    
 
 }

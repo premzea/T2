@@ -149,11 +149,11 @@ public class Controller {
     }
 
     public boolean hasPlaces(){
-        return places.get(0)!= null? true:false;
+        return places.isEmpty() ? false : true;
     }
 
     public boolean hasCommunities(){
-        return coms.get(0)!= null? true:false;
+        return coms.isEmpty() ? false : true;
     }
 
     public void addSpecies(String nomPlace, String name, String pType, int pNumber){
@@ -376,12 +376,22 @@ public class Controller {
             if(places.get(i).getDepartment().equals(dep)){
                 if(!(comNames.contains(places.get(i).getComInfo()))){
                     comNames.add(places.get(i).getComInfo());
-                    str = str + "\nCommunity " + (comNames.size()) + places.get(i).getComInfo();
+                    str = str + "\nCommunity " + (comNames.size())+ "\n" + places.get(i).getComInfo();
                 }
             }
 
         }
         return str;
         
+    }
+
+    public String comsbyProblem(String problematic){
+        String str = "\nCommunities\n";
+        for(int i = 0; i< coms.size(); i++){
+            if(coms.get(i).getProblem().equals(problematic)){
+                str = str + "Community " + (i+1) + "\n" +  coms.get(i).toString() + "\n"; 
+            }
+        }
+        return str;
     }
 }

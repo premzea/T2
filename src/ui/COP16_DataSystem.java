@@ -15,7 +15,8 @@ public class COP16_DataSystem {
 
     public static boolean checker = true;
 
-    // Todo Try and Consults Menu; And picture parameters maybe
+    // Todo check places creation cause null and ut empty precaution to biggest
+    // place consultor
 
     public static void main(String[] args) {
         int option = 3;
@@ -86,7 +87,7 @@ public class COP16_DataSystem {
                 break;
 
             case 3:
-                consultComsProblem();
+                consultComsbyProblem();
                 break;
 
             case 4:
@@ -113,16 +114,16 @@ public class COP16_DataSystem {
 
     }
 
-    public static void consultComsProblem() {
+    public static void consultComsbyProblem() {
         if (!(controller.hasCommunities())) {
             System.out.println("No communities created. Unable to consult unexisting community");
         } else {
-            System.out.println("\nChoose community to consult problematic \n");
-            System.out.println(controller.getNamesComs());
-            int entry = sc.nextInt();
-            sc.nextLine();
-            System.out.println("Name: " + controller.coms.get(entry - 1).getName() + "Problematic: "
-                    + controller.coms.get(entry - 1).getProblem());
+
+            System.out.println();
+            int entry = askUserInput("\nChoose problematic:  \n(1) Falta de Escuela \n(2) Falta de Hospital", 2);
+            String problematic = entry == 1 ? "FALTA ESCUELA" : "FALTA HOSPITAL";
+            System.out.println(controller.comsbyProblem(problematic));
+
         }
     }
 
@@ -130,10 +131,9 @@ public class COP16_DataSystem {
         if (!(controller.hasPlaces())) {
             System.out.println("No places created. Unable to show unexisting places data");
         } else {
-            System.out.println(
-                    "\nChoose department to consult it's communities: \n1.Choco \n2.Valle \n3.Cauca \n4.Narino");
+            int entry = askUserInput(
+                    "\nChoose department to consult it's communities: \n1.Choco \n2.Valle \n3.Cauca \n4.Narino", 4);
             String department = "";
-            int entry = sc.nextInt();
             sc.nextLine();
             switch (entry) {
                 case 1:
@@ -159,44 +159,76 @@ public class COP16_DataSystem {
     public static void consultPlaceMostSpecies() {
         int numSpecies = 0;
         String place = "";
-        for (int i = 0; i < controller.places.size(); i++) {
-            if (controller.places.get(i).getSpeciesNames().length > numSpecies) {
-                numSpecies = controller.places.get(i).getSpeciesNames().length;
-                place = controller.places.get(i).getName();
+        boolean can = false;
+        if (controller.hasPlaces()) {
+            for (int i = 0; i < controller.places.size(); i++) {
+                if (controller.hasSpecies(controller.places.get(i).getName())) {
+                    can = true;
+                    i = controller.places.size() + 1;
+                }
             }
+            if(can){
+                for (int i = 0; i < controller.places.size(); i++) {
+                    if (controller.places.get(i).getSpeciesNames().length > numSpecies) {
+                        numSpecies = controller.places.get(i).getSpeciesNames().length;
+                        place = controller.places.get(i).getName();
+                    }
+                }
+                System.out.println("\nPlace with The Most Species\n" + place);
+            } else{
+                System.out.println("No species in data base");
+            }
+            
+        } else {
+            System.out.println("No places in data base");
         }
-        System.out.println("\nPlace with The Most Species\n" + place);
+
     }
 
     public static void consultBiggestPlaces() {
-        double size1 = 0;
-        double size2 = 0;
-        double size3 = 0;
-        String[] names = new String[3];
-        int index1 = 0;
-        for (int i = 0; i < controller.places.size(); i++) {
-            if (controller.places.get(i).getArea() > size1) {
-                size1 = controller.places.get(i).getArea();
-                index1 = i;
-                names[0] = controller.places.get(i).getName();
+        if (controller.hasPlaces()) {
+            double size1 = 0;
+            double size2 = 0;
+            double size3 = 0;
+            String[] names = new String[3];
+            int index1 = 0;
+            for (int i = 0; i < controller.places.size(); i++) {
+                if (controller.places.get(i).getArea() > size1) {
+                    size1 = controller.places.get(i).getArea();
+                    index1 = i;
+                    names[0] = controller.places.get(i).getName();
+                }
             }
-        }
-        int index2 = 0;
-        for (int i = 0; i < controller.places.size(); i++) {
-            if (controller.places.get(i).getArea() > size1 && i != index1) {
-                size2 = controller.places.get(i).getArea();
-                index2 = i;
-                names[1] = controller.places.get(i).getName();
+            int index2 = 0;
+            for (int i = 0; i < controller.places.size(); i++) {
+                if (controller.places.get(i) != null) {
+                    if (controller.places.get(i).getArea() >= size2  && i != index1) {
+                        size2 = controller.places.get(i).getArea();
+                        index2 = i;
+                        names[1] = controller.places.get(i).getName();
+                    }
+                }
+
             }
-        }
-        for (int i = 0; i < controller.places.size(); i++) {
-            if (controller.places.get(i).getArea() > size1 && i != index1 && i != index2) {
-                size3 = controller.places.get(i).getArea();
-                names[2] = controller.places.get(i).getName();
+            for (int i = 0; i < controller.places.size(); i++) {
+                if (controller.places.get(i) != null) {
+                    if (controller.places.get(i).getArea() >= size3 && i != index1 && i != index2) {
+                        size3 = controller.places.get(i).getArea();
+                        names[2] = controller.places.get(i).getName();
+                    }
+                }
             }
+            double[] sizes = {size1,size2,size3};
+            System.out.println("\nBiggest Places ");
+            for(int i = 0; i<3;i++){
+                if(names[i] != null){
+                    System.out.println("\n" + (i+1) + "." + " " + names[i] + " Area(Km^2): " + sizes[i]);
+                }
+            }
+        } else {
+            System.out.println("No places in data base");
         }
-        System.out.println("\nBiggest Places \n1." + names[0] + "  Area(km^2): " + size1 + "\n2." + names[1]
-                + "  Area(km^2): " + size2 + "\n3." + names[2] + "Area(km^2): " + size3);
+
     }
 
     public static void communityOperations() {
