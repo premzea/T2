@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class Controller {
-    public ArrayList<Communities> coms;
+    public ArrayList<Community> coms;
 
     public ArrayList<Place> places;
 
@@ -13,7 +13,7 @@ public class Controller {
         this.places = new ArrayList<>();
     }
 
-    public ArrayList<Communities> getComs() {
+    public ArrayList<Community> getComs() {
         return coms;
     }
 
@@ -37,7 +37,7 @@ public class Controller {
         return array;
     }
 
-    public void setComs(ArrayList<Communities> coms) {
+    public void setComs(ArrayList<Community> coms) {
         this.coms = coms;
     }
 
@@ -50,12 +50,12 @@ public class Controller {
     }
 
     public void addCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem) {
-        Communities community = new Communities(pName, pType, pPopulation, nameRep, cellphone, problem);
+        Community community = new Community(pName, pType, pPopulation, nameRep, cellphone, problem);
         coms.add(community);
     }
 
-    public void addPlace(String pName, String pType, double pArea, int day, int month, int year, String pCommunity) {
-        Place place = new Place(pName, pType, pArea, day, month, year, pCommunity);
+    public void addPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCommunity, String department) {
+        Place place = new Place(pName, pType, pArea, day, month, year, coms.get(indexCommunity), department);
         places.add(place);
     }
 
@@ -238,7 +238,7 @@ public class Controller {
     public void modifyCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem){
         for(int i = 0; i< coms.size(); i++){
             if(coms.get(i).equals(pName)){
-                Communities originalCom = coms.get(i);
+                Community originalCom = coms.get(i);
                 if(pType==null){
                     pType = originalCom.getType().name();
                 }
@@ -254,7 +254,7 @@ public class Controller {
                 if(problem == null){
                     problem = originalCom.getProblem();
                 }
-                Communities com = new Communities(pName, pType, pPopulation, nameRep, cellphone,problem );
+                Community com = new Community(pName, pType, pPopulation, nameRep, cellphone,problem );
                 coms.remove(i); 
                 coms.add(i, com);
                 i = coms.size() +1;
@@ -262,7 +262,7 @@ public class Controller {
         }
     }
 
-    public void modifyPlace(String pName, String pType, double pArea, int day, int month, int year, String pCommunity){
+    public void modifyPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCom, String department){
         for(int i = 0; i< places.size(); i++){
             if(places.get(i).equals(pName)){
                 Place originalPlace = places.get(i);
@@ -281,7 +281,22 @@ public class Controller {
                 if(year == -1){
                     year = originalPlace.getDate().getYear();
                 }
-                Place place = new Place(pName, pType, pArea, day, month, year, pCommunity);
+
+                if(indexCom == -1){
+                    String nameCom = originalPlace.getCommunityName();
+                    for(i = 0; i< coms.size(); i++){
+                        if(nameCom.equals(coms.get(i).getName())){
+                            indexCom = i;
+                            i = coms.size() + 1;
+                        }
+                    }
+                }
+
+                Community com = coms.get(indexCom);
+                if(department == null){
+                    department = originalPlace.getDepartment();
+                }
+                Place place = new Place(pName, pType, pArea, day, month, year, com, department);
                 places.remove(i); 
                 places.add(i, place);
                 i = places.size() + 1;
@@ -314,6 +329,7 @@ public class Controller {
         }
         return validity;
     }
+
 
 
     public void deleteCommunity(String nomCom){
@@ -351,5 +367,21 @@ public class Controller {
             }
 
         return str;
+    }
+
+    public String departmentComs(String dep){
+        ArrayList<String> comNames = new ArrayList<>();
+        String str = "\nCommunities in  " + dep + "\n" ;
+        for(int i =0; i< places.size(); i++){
+            if(places.get(i).getDepartment().equals(dep)){
+                if(!(comNames.contains(places.get(i).getComInfo()))){
+                    comNames.add(places.get(i).getComInfo());
+                    str = str + "\nCommunity " + (comNames.size()) + places.get(i).getComInfo();
+                }
+            }
+
+        }
+        return str;
+        
     }
 }

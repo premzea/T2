@@ -3,7 +3,7 @@ import model.Representative;
 import model.Products;
 import java.util.ArrayList;
 
-public class Communities{
+public class Community{
     private String name;
     private TypeCom type;
     private int population;
@@ -23,7 +23,7 @@ public class Communities{
     
     // }
 
-    public Communities(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem){
+    public Community(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem){
         this.name = pName;
         this.type = stringToEnum(pType);
         this.population = pPopulation;

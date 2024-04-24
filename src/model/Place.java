@@ -15,26 +15,25 @@ public class Place{
     private String picturePath;
     private double area;
     private  Dates openDate;
-    private String community;
+    private Community community;
     private Species[] species = new Species[15];
+    private Department department;
     
 
-    public Place(String pName, String pType, double pArea, int day, int month, int year, String pCommunity){
+    public Place(String pName, String pType, double pArea, int day, int month, int year, Community pCommunity, String department){
         this.name = pName;
-        this.type = stringToEnum(pType);
+        this.type = TypePlace.valueOf(pType);
         this.area = pArea;
         this.community = pCommunity;
         this.openDate = new Dates(day, month, year);
+        this.department = Department.valueOf(department);
         
     }
 
     public String toString(){
-        return "Name: " + name + "\nType: " + type.name().replace("_", " ") + "\nArea(km^2): " + area + "\nDate: " + openDate.toString() + "\nCommunity:" + community;
+        return "Name: " + name + "\nType: " + type.name().replace("_", " ") + "\nArea(km^2): " + area + "\nDate: " + openDate.toString() + "\nCommunity:" + community.toString() + "\nDepartment: " + department.name();
     }
 
-    public TypePlace stringToEnum(String tipo){
-        return TypePlace.valueOf(tipo.toUpperCase());
-    }
     
     public String getName(){
         return name;
@@ -72,9 +71,14 @@ public class Place{
         return openDate;
     }
 
-    public String getCommunity(){
-        return community;
+    public String getCommunityName(){
+        return community.getName();
     }
+
+    public String getComInfo(){
+        return community.toString();
+    }
+
 
     public Species[] getSpecies(){
         return species;
@@ -85,7 +89,7 @@ public class Place{
     }
 
     public void setType(String pType){
-        this.type = stringToEnum(pType);
+        this.type = TypePlace.valueOf(pType);
     }
 
     public void setPicture(String pPicture){
@@ -101,7 +105,7 @@ public class Place{
         this.openDate = pDate;
     }
 
-    public void setCommunity(String pCommunity){
+    public void setCommunity(Community pCommunity){
         this.community = pCommunity;
     }
 
@@ -145,6 +149,10 @@ public class Place{
         this.species = newSpecies;
         // me va a quedar un hueco en la lista?
         
+    }
+
+    public String getDepartment(){
+        return department.name();
     }
 
 

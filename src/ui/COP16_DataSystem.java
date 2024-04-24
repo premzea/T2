@@ -13,6 +13,8 @@ public class COP16_DataSystem {
 
     public static Controller controller = new Controller();
 
+    public static boolean checker = true;
+
     // Todo Try and Consults Menu; And picture parameters maybe
 
     public static void main(String[] args) {
@@ -40,9 +42,17 @@ public class COP16_DataSystem {
     }
 
     public static void administrativeMenu() {
-        int entry = askUserInput(
-                "\nEnter: \n1.To enter,modify or delete a community \n2.To enter,modify or delete a place \n3.To enter,modify or eliminate a product \n4.To enter,modify or delete a species ",
-                4);
+        int entry = 0;
+        if (checker) {
+            entry = askUserInput(
+                    "\nEnter: \n1.To enter,modify or delete a community \n2.To enter,modify or eliminate a product",
+                    2);
+        } else {
+            entry = askUserInput(
+                    "\nEnter: \n1.To enter,modify or delete a community \n2.To enter,modify or delete a place \n3.To enter,modify or eliminate a product \n4.To enter,modify or delete a species ",
+                    4);
+        }
+
         switch (entry) {
             case 1:
                 communityOperations();
@@ -64,7 +74,7 @@ public class COP16_DataSystem {
     public static void consultsMenu() {
         // Consultar foto? Do we need to display it?
         int entry = askUserInput(
-                "\nEnter: \n1. Consult place's picture and attribute\n2. Consult information from a department's community \n3.Consult communities with a same problematic \n4.Consult place with most species \n5.Consult biggest places",
+                "\nEnter: \n1.Consult place's picture and attribute\n2.Consult information from a department's communities \n3.Consult communities with a same problematic \n4.Consult place with most species \n5.Consult biggest places",
                 5);
         switch (entry) {
             case 1:
@@ -72,7 +82,7 @@ public class COP16_DataSystem {
                 break;
 
             case 2:
-                consultPlaceCom();
+                consultDepartmentsComs();
                 break;
 
             case 3:
@@ -116,16 +126,33 @@ public class COP16_DataSystem {
         }
     }
 
-    public static void consultPlaceCom() {
+    public static void consultDepartmentsComs() {
         if (!(controller.hasPlaces())) {
-            System.out.println("No places created. Unable to show unexisting places");
+            System.out.println("No places created. Unable to show unexisting places data");
         } else {
-            System.out.println("\nChoose place to consult it's community: \n");
-            System.out.println(controller.getNamePlaces());
+            System.out.println(
+                    "\nChoose department to consult it's communities: \n1.Choco \n2.Valle \n3.Cauca \n4.Narino");
+            String department = "";
             int entry = sc.nextInt();
             sc.nextLine();
-            String nom = controller.places.get(entry - 1).getName();
-            System.out.println("Community: " + controller.places.get(entry - 1).getCommunity());
+            switch (entry) {
+                case 1:
+                    department = "CHOCO";
+                    break;
+
+                case 2:
+                    department = "VALLE";
+                    break;
+
+                case 3:
+                    department = "CAUCA";
+                    break;
+
+                case 4:
+                    department = "Narino";
+                    break;
+            }
+            System.out.println(controller.departmentComs(department));
         }
     }
 
@@ -367,11 +394,11 @@ public class COP16_DataSystem {
     public static void addPlace() {
         // do we make necesary the addition of a picture
         // String pName, String pType, double pArea, Date pDate, String pCommunity
-        
+
         boolean validity = true;
         String nom = "";
         do {
-            if(!(validity)){
+            if (!(validity)) {
                 System.out.println("Place with name exists");
             }
             System.out.println("\nNew Place \nName: ");
@@ -390,7 +417,7 @@ public class COP16_DataSystem {
                 break;
 
             case 3:
-                tipo = "PRIVADO";
+                tipo = "PRIVADA";
                 break;
         }
         System.out.println("\nArea(km^2): ");
@@ -401,13 +428,37 @@ public class COP16_DataSystem {
         System.out.println("\nYear: ");
         int year = sc.nextInt();
         sc.nextLine();
-        System.out.println("\nCommunity Name: ");
-        String comName = sc.nextLine();
+        System.out.println("\nGuarding nCommunity: ");
+        System.out.println(controller.getNamesComs());
+        entry = sc.nextInt();
+        sc.nextLine();
+        int indexCom = entry - 1;
+        System.out.println("Enter Department: \n1.Choco \n2.Valle \n3.Cauca \n4.Narino");
+        // si le pongo la ñ puede sacar error
+        entry = sc.nextInt();
+        sc.nextLine();
+        String department = "";
+        switch (entry) {
+            case 1:
+                department = "CHOCO";
+                break;
 
-        controller.addPlace(nom, tipo, area, day, month, year, comName);
+            case 2:
+                department = "VALLE";
+                break;
+
+            case 3:
+                department = "CAUCA";
+                break;
+
+            case 4:
+                department = "Narino";
+                break;
+        }
+
+        controller.addPlace(nom, tipo, area, day, month, year, indexCom, department);
 
         System.out.println("\nPlace added succesfully \n");
-
 
     }
 
@@ -415,7 +466,7 @@ public class COP16_DataSystem {
         String nom = "";
         boolean validity = true;
         do {
-            if(!(validity)){
+            if (!(validity)) {
                 System.out.println("Community with name exists");
             }
             System.out.println("\nNew Community \nName: ");
@@ -467,6 +518,8 @@ public class COP16_DataSystem {
         controller.addCommunity(nom, typeCom, population, nomRep, cellPhone, problem);
 
         System.out.println("\nCommunity created succesfully \n");
+
+        checker = false;
     }
 
     public static void speciesOperations() {
@@ -601,7 +654,7 @@ public class COP16_DataSystem {
             System.out.println("No places created. Unable to delete Species");
         } else {
             System.out.println("\nDelete Species \nFrom which place: \n");
-            System.out.println(controller.getNamesComs());
+            System.out.println(controller.getNamePlaces());
             int entry = sc.nextInt();
             sc.nextLine();
             String nom = controller.coms.get(entry - 1).getName();
@@ -734,14 +787,14 @@ public class COP16_DataSystem {
                         break;
                 }
             }
-            entry = askUserInput("\nEnter: \n1. To modify place area\n2.To not", 2);
+            entry = askUserInput("\nEnter: \n1.To modify place area\n2.To not", 2);
             double num = -1;
             if (entry == 1) {
                 System.out.println("\nNew place area: ");
                 num = sc.nextDouble();
                 sc.nextLine();
             }
-            entry = askUserInput("\nEnter: \n1. To modify place's inaguration date\n2.To not", 2);
+            entry = askUserInput("\nEnter: \n1.To modify place's inaguration date\n2.To not", 2);
             int day = -1;
             int month = -1;
             int year = -1;
@@ -753,14 +806,44 @@ public class COP16_DataSystem {
                 sc.nextLine();
             }
 
-            entry = askUserInput("\nEnter: \n1. To modify place's community \n2.To not", 2);
-            String comName = null;
+            entry = askUserInput("\nEnter: \n1.To modify place's community \n2.To not", 2);
+            int indexCom = -1;
             if (entry == 1) {
-                System.out.println("New community's name: ");
-                comName = sc.nextLine();
+                System.out.println("New community: ");
+                System.out.println(controller.getNamesComs());
+                entry = sc.nextInt();
+                sc.nextLine();
+                indexCom = entry - 1;
             }
 
-            controller.modifyPlace(nom, tipo, num, day, month, year, comName);
+            entry = askUserInput("\nEnter: \n1.To modify place's department \n2.To not", 2);
+            String department = null;
+            if (entry == 1) {
+                System.out.println("New Department ");
+                System.out.println("Enter Department: \n1.Choco \n2.Valle \n3.Cauca \n4.Narino");
+                // si le pongo la ñ puede sacar error
+                entry = sc.nextInt();
+                sc.nextLine();
+                switch (entry) {
+                    case 1:
+                        department = "CHOCO";
+                        break;
+
+                    case 2:
+                        department = "VALLE";
+                        break;
+
+                    case 3:
+                        department = "CAUCA";
+                        break;
+
+                    case 4:
+                        department = "Narino";
+                        break;
+                }
+            }
+
+            controller.modifyPlace(nom, tipo, num, day, month, year, indexCom, department);
             System.out.println("Place modified succesfully");
         }
 
