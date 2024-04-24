@@ -7,15 +7,28 @@ public class Controller {
 
     public ArrayList<Place> places;
 
+    /**
+    * Method is the Construcor and initializes coms and places
+    */
 
     public Controller(){
         this.coms= new ArrayList<>();
         this.places = new ArrayList<>();
     }
 
-    public ArrayList<Community> getComs() {
-        return coms;
-    }
+    // /**
+    // * Method return the coms Array
+    // *@return coms, type ArrayList<Community>
+    // */
+
+    // public ArrayList<Community> getComs() {
+    //     return coms;
+    // }
+
+    /**
+    * Method creates and array with all the places names
+    *@return array, type ArrayList<String>
+    */
 
     public ArrayList<String> placesToString() {
         ArrayList<String> array = new ArrayList<>();
@@ -27,6 +40,11 @@ public class Controller {
         return array;
     }
 
+    /**
+    * Method creates and array with all the communities names
+    *@return array, type ArrayList<String>
+    */
+
     public ArrayList<String> comsToString() {
         ArrayList<String> array = new ArrayList<>();
         if (!(coms.isEmpty())) {
@@ -37,27 +55,43 @@ public class Controller {
         return array;
     }
 
-    public void setComs(ArrayList<Community> coms) {
-        this.coms = coms;
-    }
 
-    public ArrayList<Place> getPlaces() {
-        return places;
-    }
 
-    public void setPlaces(ArrayList<Place> places) {
-        this.places = places;
-    }
+    // public void setComs(ArrayList<Community> coms) {
+    //     this.coms = coms;
+    // }
+
+
+
+    // public ArrayList<Place> getPlaces() {
+    //     return places;
+    // }
+
+    // public void setPlaces(ArrayList<Place> places) {
+    //     this.places = places;
+    // }
+
+    /**
+    * Method creates and adds a Community to the coms array
+    */
 
     public void addCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem) {
         Community community = new Community(pName, pType, pPopulation, nameRep, cellphone, problem);
         coms.add(community);
     }
 
+    /**
+    * Method creates and adds a Place to the places array
+    */
+
     public void addPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCommunity, String department) {
         Place place = new Place(pName, pType, pArea, day, month, year, coms.get(indexCommunity), department);
         places.add(place);
     }
+
+    /**
+    * Method creates and adds a Product to a community from the coms array
+    */
 
     public void addProduct(String placeNom, String pName, double perNatural, String pType, boolean pHandmade) {
         ////
@@ -68,6 +102,10 @@ public class Controller {
             }
         }
     }
+
+    /**
+    * Method modifies a community's product
+    */
 
     public void modifyProduct(String comNom, String pName, double perNatural, String pType, String pHandmade) {
         //if decided no to change, changes it to none and thats wrong baby girl
@@ -81,7 +119,7 @@ public class Controller {
             if (coms.get(i).getName().equals(comNom)) {
                 for (int z = 0; z < 20; z++) {
                     if (coms.get(i).getProductNames()[z].equals(pName)) {
-                        Products originalProduct = coms.get(i).getProducts()[z];
+                        Product originalProduct = coms.get(i).getProducts()[z];
                         if(perNatural == -1){
                             perNatural = originalProduct.getperNatural();
                         }
@@ -92,7 +130,7 @@ public class Controller {
                             handmade = originalProduct.getHandmade();
                         }
                         //more efficient way to do this?
-                        Products product = new Products(pName, perNatural, pType, handmade);
+                        Product product = new Product(pName, perNatural, pType, handmade);
                         coms.get(i).modifyProduct(z,pName, perNatural, pType, handmade);
                         z = 21;
                     }
@@ -101,6 +139,11 @@ public class Controller {
             }
         }
     }
+
+    /**
+    * Method creates a community's Product Names array
+    *@return procNames, type String[]
+    */
 
     public String[] getProductsNames(String nomCom) {
         String[] procNames = new String[20];
@@ -113,6 +156,11 @@ public class Controller {
         return procNames;
     }
 
+    /**
+    * Method creates a places's Species Names array
+    *@return specNames, type String[]
+    */
+    
     public String[] getSpeciesNames(String nomCom) {
         String[] specNames = new String[15];
         for (int i = 0; i < places.size(); i++) {
@@ -122,21 +170,7 @@ public class Controller {
         }
         return specNames;
     }
-
-    public boolean hasProducts(String placeNom) {
-        boolean value;
-        Products output = null;
-        for (int i = 0; i < coms.size(); i++) {
-            if (coms.get(i).getName().equals(placeNom)) {
-                output = coms.get(i).getProducts()[0];
-                i = 123;
-            }
-
-        }
-        value = output == null ? false : true;
-        return value;
-
-    }
+ 
 
     public void deleteProduct(String placeNom, int index) {
         for (int i = 0; i < coms.size(); i++) {
@@ -148,21 +182,28 @@ public class Controller {
         }
     }
 
+    /**
+    * Method evaluates if places is empty
+    *@return value, type boolean
+    */
+
     public boolean hasPlaces(){
         return places.isEmpty() ? false : true;
     }
+
+    /**
+    * Method evaluates if communities is empty
+    *@return value, type boolean
+    */
 
     public boolean hasCommunities(){
         return coms.isEmpty() ? false : true;
     }
 
-    public void addSpecies(String nomPlace, String name, String pType, int pNumber){
-        for(int i = 0; i<places.size(); i++){
-            if(nomPlace == places.get(i).getName()){
-                places.get(i).addSpecies(name, pType, pNumber);
-            }
-        }
-    }
+    /**
+    * Method evaluates if a place has species 
+    *@return value, type boolean
+    */
 
     public boolean hasSpecies(String placeNom){
         boolean value;
@@ -177,6 +218,42 @@ public class Controller {
         value = output == null ? false : true;
         return value;
     }
+
+    /**
+    * Method evaluates if a community has prodcuts 
+    *@return value, type boolean
+    */
+
+    public boolean hasProducts(String comNom) {
+        boolean value;
+        Product output = null;
+        for (int i = 0; i < coms.size(); i++) {
+            if (coms.get(i).getName().equals(comNom)) {
+                output = coms.get(i).getProducts()[0];
+                i = 123;
+            }
+
+        }
+        value = output == null ? false : true;
+        return value;
+
+    }
+
+    /**
+    * Method adds species to a place
+    */
+
+    public void addSpecies(String nomPlace, String name, String pType, int pNumber){
+        for(int i = 0; i<places.size(); i++){
+            if(nomPlace == places.get(i).getName()){
+                places.get(i).addSpecies(name, pType, pNumber);
+            }
+        }
+    }
+
+    /**
+    * Method modifies a place's species
+    */
 
     public void modifySpecies(String nomPlace, String name, String pType, int pNumber){
         //cannot access 
@@ -199,6 +276,10 @@ public class Controller {
         }
     }
 
+     /**
+    * Method deletes a places species
+    */
+
     public void deleteSpecies(String placeNom, int index) {
         for (int i = 0; i < places.size(); i++) {
             if (places.get(i).getName().equals(placeNom)) {
@@ -210,6 +291,11 @@ public class Controller {
 
         }
     }
+
+    /**
+    * Method evaluates if a place can have more species
+    *@return value, type boolean
+    */
 
     public boolean canAddSpecies(String nom){
         boolean value = false;
@@ -223,6 +309,11 @@ public class Controller {
         return value;
     }
 
+    /**
+    * Method evaluates if a community can have more products
+    *@return value, type boolean
+    */
+
     public boolean canAddProducts(String nom){
         boolean value = false;
         for(int i = 0; i<coms.size(); i++){
@@ -234,6 +325,10 @@ public class Controller {
 
         return value;
     }
+
+    /**
+    * Method modifies a community from coms
+    */
 
     public void modifyCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem){
         for(int i = 0; i< coms.size(); i++){
@@ -261,6 +356,10 @@ public class Controller {
             }
         }
     }
+
+    /**
+    * Method modifies a place from places
+    */
 
     public void modifyPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCom, String department){
         for(int i = 0; i< places.size(); i++){
@@ -304,8 +403,12 @@ public class Controller {
         }
     }
 
+    /**
+    * Method checks if a new community's name is original by comparing it to the names of communities in coms
+    *@return value, type boolean
+    */
+
     public boolean comOriginal(String nom){
-        
         boolean validity = true;
         ArrayList<String> comsNames = comsToString();
         for (int i = 0; i < comsNames.size(); i++) {
@@ -317,6 +420,11 @@ public class Controller {
         return validity;
 
     }
+
+    /**
+    * Method checks if a new place's name is original by comparing it to the names of places in places
+    *@return value, type boolean
+    */
 
     public boolean placeOriginal(String nom){
         ArrayList<String> placesNames = placesToString();
@@ -330,7 +438,9 @@ public class Controller {
         return validity;
     }
 
-
+    /**
+    * Method deletes a community from coms
+    */
 
     public void deleteCommunity(String nomCom){
         for(int i = 0; i< coms.size(); i++){
@@ -340,6 +450,10 @@ public class Controller {
             }}
     }
 
+    /**
+    * Method deletes a place from places
+    */
+
     public void deletePlace(String nomPlace){
         for(int i = 0; i< places.size(); i++){
             if(places.get(i).equals(nomPlace)){
@@ -348,6 +462,11 @@ public class Controller {
             }}
         
     }
+
+    /**
+    * Method gets the names of the places of places and arranges it into a numbered string
+    *@return str, type string
+    */
 
     public String getNamePlaces(){
         ArrayList<String> placesNames = placesToString();
@@ -359,6 +478,11 @@ public class Controller {
         return str;
     }
 
+    /**
+    * Method gets the names of the communities of coms and arranges it into a numbered string
+    *@return str, type string
+    */
+
     public String getNamesComs(){
         ArrayList<String> comsNames = comsToString();
         String str= "";
@@ -368,6 +492,11 @@ public class Controller {
 
         return str;
     }
+
+    /**
+    * Method gets the names of the communities that live in a same department
+    *@return str, type string
+    */
 
     public String departmentComs(String dep){
         ArrayList<String> comNames = new ArrayList<>();
@@ -384,6 +513,12 @@ public class Controller {
         return str;
         
     }
+
+    
+    /**
+    * Method gets the information of communities with a same problematic 
+    *@return str, type string
+    */
 
     public String comsbyProblem(String problematic){
         String str = "\nCommunities\n";

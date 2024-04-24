@@ -1,14 +1,14 @@
 package model;
 
 
-public class Products{
+public class Product{
     private String name;
     private double perNatural;
     private TypeProduct type;
     private boolean handmade;
 
 
-    public Products(String pName, double perNatural, String pType, boolean pHandmade){
+    public Product(String pName, double perNatural, String pType, boolean pHandmade){
         this.name = pName;
         this.perNatural = perNatural;
         this.type = stringToEnum(pType);

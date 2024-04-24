@@ -1,6 +1,6 @@
 package model;
 import model.Representative;
-import model.Products;
+import model.Product;
 import java.util.ArrayList;
 
 public class Community{
@@ -9,7 +9,7 @@ public class Community{
     private int population;
     private Representative rep;
     private String problems;
-    private Products[] products = new Products[20];
+    private Product[] products = new Product[20];
     private TypeProblem problem; 
     
 
@@ -58,14 +58,14 @@ public class Community{
     public void addProduct(String pName, double perNatural, String pType, boolean pHandmade){
         for (int i = 0; i< 20; i++){
             if (products[i] == null){
-                products[i] = new Products(pName, perNatural, pType, pHandmade);
+                products[i] = new Product(pName, perNatural, pType, pHandmade);
                 i = 21;
             }
         }
     }
 
     public void modifyProduct(int index, String pName, double perNatural,String pType,boolean handmade){
-        products[index] =  new Products(pName, perNatural, pType, handmade);
+        products[index] =  new Product(pName, perNatural, pType, handmade);
     }
 
     public String[] getProductNames(){
@@ -96,7 +96,7 @@ public class Community{
     //     return problems;
     // }
 
-    public Products[] getProducts(){
+    public Product[] getProducts(){
         return products;
     }
 
@@ -116,7 +116,7 @@ public class Community{
         this.problems = pProblems;
     }
 
-    public void setProducts(Products[] pProducts){
+    public void setProducts(Product[] pProducts){
         this.products = pProducts;
     }
 
@@ -130,7 +130,7 @@ public class Community{
 
     public void deleteProduct(int index){
         products[index] = null;
-        Products[] newProducts = new Products[20];
+        Product[] newProducts = new Product[20];
         for(int i =0, j=0; i< products.length;i++){
             if(i!= index){
                 newProducts[j++] = products[i]; 

@@ -14,7 +14,7 @@ public class Place{
     private TypePlace type;
     private String picturePath;
     private double area;
-    private  Dates openDate;
+    private  MyDate openDate;
     private Community community;
     private Species[] species = new Species[15];
     private Department department;
@@ -25,7 +25,7 @@ public class Place{
         this.type = TypePlace.valueOf(pType);
         this.area = pArea;
         this.community = pCommunity;
-        this.openDate = new Dates(day, month, year);
+        this.openDate = new MyDate(day, month, year);
         this.department = Department.valueOf(department);
         
     }
@@ -67,7 +67,7 @@ public class Place{
         return area;
     }
 
-    public Dates getDate(){
+    public MyDate getDate(){
         return openDate;
     }
 
@@ -100,7 +100,7 @@ public class Place{
         this.area= pArea;
     }
 
-    public void setDate(Dates pDate){
+    public void setDate(MyDate pDate){
         // do i set a date here or in ui?
         this.openDate = pDate;
     }
