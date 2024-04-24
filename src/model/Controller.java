@@ -8,11 +8,11 @@ public class Controller {
     public ArrayList<Place> places;
 
     /**
-    * Method is the Constructor and initializes coms and places
-    */
+     * Method is the Constructor and initializes coms and places
+     */
 
-    public Controller(){
-        this.coms= new ArrayList<>();
+    public Controller() {
+        this.coms = new ArrayList<>();
         this.places = new ArrayList<>();
     }
 
@@ -22,13 +22,14 @@ public class Controller {
     // */
 
     // public ArrayList<Community> getComs() {
-    //     return coms;
+    // return coms;
     // }
 
     /**
-    * Method creates and array with all the places names
-    *@return array, type ArrayList<String>
-    */
+     * Method creates and array with all the places names
+     * 
+     * @return array, type ArrayList<String>
+     */
 
     public ArrayList<String> placesToString() {
         ArrayList<String> array = new ArrayList<>();
@@ -41,9 +42,10 @@ public class Controller {
     }
 
     /**
-    * Method creates and array with all the communities names
-    *@return array, type ArrayList<String>
-    */
+     * Method creates and array with all the communities names
+     * 
+     * @return array, type ArrayList<String>
+     */
 
     public ArrayList<String> comsToString() {
         ArrayList<String> array = new ArrayList<>();
@@ -55,43 +57,41 @@ public class Controller {
         return array;
     }
 
-
-
     // public void setComs(ArrayList<Community> coms) {
-    //     this.coms = coms;
+    // this.coms = coms;
     // }
 
-
-
     // public ArrayList<Place> getPlaces() {
-    //     return places;
+    // return places;
     // }
 
     // public void setPlaces(ArrayList<Place> places) {
-    //     this.places = places;
+    // this.places = places;
     // }
 
     /**
-    * Method creates and adds a Community to the coms array
-    */
+     * Method creates and adds a Community to the coms array
+     */
 
-    public void addCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem) {
+    public void addCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone,
+            String problem) {
         Community community = new Community(pName, pType, pPopulation, nameRep, cellphone, problem);
         coms.add(community);
     }
 
     /**
-    * Method creates and adds a Place to the places array
-    */
+     * Method creates and adds a Place to the places array
+     */
 
-    public void addPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCommunity, String department) {
+    public void addPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCommunity,
+            String department) {
         Place place = new Place(pName, pType, pArea, day, month, year, coms.get(indexCommunity), department);
         places.add(place);
     }
 
     /**
-    * Method creates and adds a Product to a community from the coms array
-    */
+     * Method creates and adds a Product to a community from the coms array
+     */
 
     public void addProduct(String placeNom, String pName, double perNatural, String pType, boolean pHandmade) {
         ////
@@ -104,53 +104,49 @@ public class Controller {
     }
 
     /**
-    * Method modifies a community's product
-    */
+     * Method modifies a community's product
+     */
 
-    public void modifyProduct(String comNom, String pName, double perNatural, String pType, String pHandmade) {
-        //if decided no to change, changes it to none and thats wrong baby girl
-        // for (int i = 0; i < places.size(); i++) {
-        //     if (places.get(i).getName().equals(nomPlace)) {
-        //         places.get(i).modifySpecies(name, pType, pNumber);
-        //     }
-        //     i = places.size() + 1;
-        // }
+    public void modifyProduct(String comNom,int index, double perNatural, String pType, String pHandmade) {
         int indicator = 0;
-        if(pHandmade == null){
+        if (pHandmade == null) {
             indicator = 1;
         }
         boolean handmade = pHandmade.equals("true") ? true : false;
-        //is there a way to do it without enetering products?
+        // is there a way to do it without enetering products?
         for (int i = 0; i < coms.size(); i++) {
             if (coms.get(i).getName().equals(comNom)) {
-                    coms.get(i).modifyProduct(indicator,pName, perNatural, pType, pHandmade);
-                    i = 100;
-                }
+                coms.get(i).modifyProduct(indicator, index, perNatural, pType, handmade);
+                i = 100;
             }
         }
     }
 
-    /**
-    * Method creates a community's Product Names array
-    *@return procNames, type String[]
-    */
+    
 
-    public String[] getProductsNames(String nomCom) {
-        String[] procNames = new String[20];
+    /**
+     * Method creates a community's Product Names array
+     * 
+     * @return procNames, type String[]
+     */
+
+    public String getProductsNames(String nomCom) {
+        String str = "";
         for (int i = 0; i < coms.size(); i++) {
             if (coms.get(i).getName() == nomCom) {
-                procNames = coms.get(i).getProductNames();
+                str = coms.get(i).getProductNames();
                 // list product names
             }
         }
-        return procNames;
+        return str;
     }
 
     /**
-    * Method creates a places's Species Names array
-    *@return specNames, type String[]
-    */
-    
+     * Method creates a places's Species Names array
+     * 
+     * @return specNames, type String[]
+     */
+
     public String[] getSpeciesNames(String nomCom) {
         String[] specNames = new String[15];
         for (int i = 0; i < places.size(); i++) {
@@ -160,7 +156,6 @@ public class Controller {
         }
         return specNames;
     }
- 
 
     public void deleteProduct(String placeNom, int index) {
         for (int i = 0; i < coms.size(); i++) {
@@ -173,29 +168,32 @@ public class Controller {
     }
 
     /**
-    * Method evaluates if places is empty
-    *@return value, type boolean
-    */
+     * Method evaluates if places is empty
+     * 
+     * @return value, type boolean
+     */
 
-    public boolean hasPlaces(){
+    public boolean hasPlaces() {
         return places.isEmpty() ? false : true;
     }
 
     /**
-    * Method evaluates if communities is empty
-    *@return value, type boolean
-    */
+     * Method evaluates if communities is empty
+     * 
+     * @return value, type boolean
+     */
 
-    public boolean hasCommunities(){
+    public boolean hasCommunities() {
         return coms.isEmpty() ? false : true;
     }
 
     /**
-    * Method evaluates if a place has species 
-    *@return value, type boolean
-    */
+     * Method evaluates if a place has species
+     * 
+     * @return value, type boolean
+     */
 
-    public boolean hasSpecies(String placeNom){
+    public boolean hasSpecies(String placeNom) {
         boolean value = false;
         for (int i = 0; i < places.size(); i++) {
             if (places.get(i).getName().equals(placeNom)) {
@@ -208,43 +206,42 @@ public class Controller {
     }
 
     /**
-    * Method evaluates if a community has prodcuts 
-    *@return value, type boolean
-    */
+     * Method evaluates if a community has prodcuts
+     * 
+     * @return value, type boolean
+     */
 
     public boolean hasProducts(String comNom) {
-        boolean value;
+        boolean value = false;
         Product output = null;
         for (int i = 0; i < coms.size(); i++) {
             if (coms.get(i).getName().equals(comNom)) {
-                output = coms.get(i).getProducts()[0];
-                i = 123;
+                value = coms.get(i).hasProducts();
             }
 
         }
-        value = output == null ? false : true;
         return value;
 
     }
 
     /**
-    * Method adds species to a place
-    */
+     * Method adds species to a place
+     */
 
-    public void addSpecies(String nomPlace, String name, String pType, int pNumber){
-        for(int i = 0; i<places.size(); i++){
-            if(nomPlace == places.get(i).getName()){
+    public void addSpecies(String nomPlace, String name, String pType, int pNumber) {
+        for (int i = 0; i < places.size(); i++) {
+            if (nomPlace == places.get(i).getName()) {
                 places.get(i).addSpecies(name, pType, pNumber);
             }
         }
     }
 
     /**
-    * Method modifies a place's species
-    */
+     * Method modifies a place's species
+     */
 
-    public void modifySpecies(String nomPlace, String name, String pType, int pNumber){
-        //cannot access 
+    public void modifySpecies(String nomPlace, String name, String pType, int pNumber) {
+        // cannot access
         for (int i = 0; i < places.size(); i++) {
             if (places.get(i).getName().equals(nomPlace)) {
                 places.get(i).modifySpecies(name, pType, pNumber);
@@ -254,9 +251,9 @@ public class Controller {
         /////
     }
 
-     /**
-    * Method deletes a places species
-    */
+    /**
+     * Method deletes a places species
+     */
 
     public void deleteSpecies(String placeNom, int index) {
         for (int i = 0; i < places.size(); i++) {
@@ -264,101 +261,105 @@ public class Controller {
                 places.get(i).deleteSpecies(index);
                 i = 100;
             }
-            i =places.size() + 1;
+            i = places.size() + 1;
         }
     }
 
     /**
-    * Method evaluates if a place can have more species
-    *@return value, type boolean
-    */
+     * Method evaluates if a place can have more species
+     * 
+     * @return value, type boolean
+     */
 
-    public boolean canAddSpecies(String nom){
+    public boolean canAddSpecies(String nom) {
         boolean value = false;
-        for(int i = 0; i<places.size(); i++){
-            if(nom == places.get(i).getName()){
+        for (int i = 0; i < places.size(); i++) {
+            if (nom == places.get(i).getName()) {
                 places.get(i).canAddSpecies();
-            }}
+            }
+        }
 
         return value;
     }
 
     /**
-    * Method evaluates if a community can have more products
-    *@return value, type boolean
-    */
+     * Method evaluates if a community can have more products
+     * 
+     * @return value, type boolean
+     */
 
-    public boolean canAddProducts(String nom){
+    public boolean canAddProducts(String nom) {
         boolean value = false;
-        for(int i = 0; i<coms.size(); i++){
-            if(nom == coms.get(i).getName()){
-                if(coms.get(i).getProducts()[19] == null){
-                    value = true;
-                }
-            }}
+        for (int i = 0; i < coms.size(); i++) {
+            if (nom == coms.get(i).getName()) {
+                value = coms.get(i).canAddProducts();
+            }
+        }
 
         return value;
     }
 
     /**
-    * Method modifies a community from coms
-    */
+     * Method modifies a community from coms
+     */
 
-    public void modifyCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem){
-        for(int i = 0; i< coms.size(); i++){
-            if(coms.get(i).equals(pName)){
+    public void modifyCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone,
+            String problem) {
+        for (int i = 0; i < coms.size(); i++) {
+            if (coms.get(i).equals(pName)) {
                 Community originalCom = coms.get(i);
-                if(pType==null){
+                if (pType == null) {
                     pType = originalCom.getType().name();
                 }
-                if(pPopulation == -1){
+                if (pPopulation == -1) {
                     pPopulation = originalCom.getPopulation();
                 }
-                if(nameRep == null){
+                if (nameRep == null) {
                     nameRep = originalCom.getRepresentative().getName();
                 }
-                if(cellphone == null){
+                if (cellphone == null) {
                     cellphone = originalCom.getRepresentative().getCellphone();
                 }
-                if(problem == null){
+                if (problem == null) {
                     problem = originalCom.getProblem();
                 }
-                Community com = new Community(pName, pType, pPopulation, nameRep, cellphone,problem );
-                coms.remove(i); 
+                Community com = new Community(pName, pType, pPopulation, nameRep, cellphone, problem);
+                coms.remove(i);
                 coms.add(i, com);
-                i = coms.size() +1;
+                i = coms.size() + 1;
             }
         }
     }
 
     /**
-    * Method modifies a place from places
-    */
+     * Method modifies a place from places
+     */
 
-    public void modifyPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCom, String department){
-        for(int i = 0; i< places.size(); i++){
-            if(places.get(i).equals(pName)){
+    public void modifyPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCom,
+            String department) {
+        for (int i = 0; i < places.size(); i++) {
+            if (places.get(i).equals(pName)) {
                 Place originalPlace = places.get(i);
-                if(pType == null){
+                if (pType == null) {
                     pType = originalPlace.getType().name();
                 }
-                if(pArea == -1){
+                if (pArea == -1) {
                     pArea = originalPlace.getArea();
                 }
-                if(day == -1){
+                if (day == -1) {
                     day = originalPlace.getDate().getDay();
                 }
-                if(month == -1){
+                if (month == -1) {
                     month = originalPlace.getDate().getMonth();
                 }
-                if(year == -1){
+                if (year == -1) {
                     year = originalPlace.getDate().getYear();
                 }
 
-                if(indexCom == -1){
+                if (indexCom == -1) {
                     String nameCom = originalPlace.getCommunityName();
-                    for(i = 0; i< coms.size(); i++){
-                        if(nameCom.equals(coms.get(i).getName())){
+                    for (i = 0; i < coms.size(); i++) {
+                        if (nameCom.equals(coms.get(i).getName())) {
                             indexCom = i;
                             i = coms.size() + 1;
                         }
@@ -366,11 +367,11 @@ public class Controller {
                 }
 
                 Community com = coms.get(indexCom);
-                if(department == null){
+                if (department == null) {
                     department = originalPlace.getDepartment();
                 }
                 Place place = new Place(pName, pType, pArea, day, month, year, com, department);
-                places.remove(i); 
+                places.remove(i);
                 places.add(i, place);
                 i = places.size() + 1;
             }
@@ -378,11 +379,13 @@ public class Controller {
     }
 
     /**
-    * Method checks if a new community's name is original by comparing it to the names of communities in coms
-    *@return value, type boolean
-    */
+     * Method checks if a new community's name is original by comparing it to the
+     * names of communities in coms
+     * 
+     * @return value, type boolean
+     */
 
-    public boolean comOriginal(String nom){
+    public boolean comOriginal(String nom) {
         boolean validity = true;
         ArrayList<String> comsNames = comsToString();
         for (int i = 0; i < comsNames.size(); i++) {
@@ -396,11 +399,13 @@ public class Controller {
     }
 
     /**
-    * Method checks if a new place's name is original by comparing it to the names of places in places
-    *@return value, type boolean
-    */
+     * Method checks if a new place's name is original by comparing it to the names
+     * of places in places
+     * 
+     * @return value, type boolean
+     */
 
-    public boolean placeOriginal(String nom){
+    public boolean placeOriginal(String nom) {
         ArrayList<String> placesNames = placesToString();
         boolean validity = true;
         for (int i = 0; i < placesNames.size(); i++) {
@@ -413,82 +418,88 @@ public class Controller {
     }
 
     /**
-    * Method deletes a community from coms
-    */
+     * Method deletes a community from coms
+     */
 
-    public void deleteCommunity(String nomCom){
-        for(int i = 0; i< coms.size(); i++){
-            if(coms.get(i).equals(nomCom)){
+    public void deleteCommunity(String nomCom) {
+        for (int i = 0; i < coms.size(); i++) {
+            if (coms.get(i).equals(nomCom)) {
                 coms.remove(i);
                 i = coms.size() + 1;
-            }}
+            }
+        }
     }
 
     /**
-    * Method deletes a place from places
-    */
+     * Method deletes a place from places
+     */
 
-    public void deletePlace(String nomPlace){
-        for(int i = 0; i< places.size(); i++){
-            if(places.get(i).equals(nomPlace)){
+    public void deletePlace(String nomPlace) {
+        for (int i = 0; i < places.size(); i++) {
+            if (places.get(i).equals(nomPlace)) {
                 places.remove(i);
                 i = places.size() + 1;
-            }}
-        
+            }
+        }
+
     }
 
     /**
-    * Method gets the names of the places of places and arranges it into a numbered string
-    *@return str, type string
-    */
+     * Method gets the names of the places of places and arranges it into a numbered
+     * string
+     * 
+     * @return str, type string
+     */
 
-    public String getNamePlaces(){
+    public String getNamePlaces() {
         ArrayList<String> placesNames = placesToString();
         String str = "";
-            for (int i = 0; i < placesNames.size(); i++) {
-                str = str + "(" + (i + 1) + ") " + placesNames.get(i) + "\n";
-            }
+        for (int i = 0; i < placesNames.size(); i++) {
+            str = str + "(" + (i + 1) + ") " + placesNames.get(i) + "\n";
+        }
 
         return str;
     }
 
     /**
-    * Method gets the names of the communities of coms and arranges it into a numbered string
-    *@return str, type string
-    */
+     * Method gets the names of the communities of coms and arranges it into a
+     * numbered string
+     * 
+     * @return str, type string
+     */
 
-    public String getNamesComs(){
+    public String getNamesComs() {
         ArrayList<String> comsNames = comsToString();
-        String str= "";
-            for (int i = 0; i < comsNames.size(); i++) {
-                str = str + "(" + (i + 1) + ") " + comsNames.get(i) + "\n";
-            }
+        String str = "";
+        for (int i = 0; i < comsNames.size(); i++) {
+            str = str + "(" + (i + 1) + ") " + comsNames.get(i) + "\n";
+        }
 
         return str;
     }
 
     /**
-    * Method gets the names of the communities that live in a same department
-    *@return str, type string
-    */
+     * Method gets the names of the communities that live in a same department
+     * 
+     * @return str, type string
+     */
 
-    public String departmentComs(String dep){
+    public String departmentComs(String dep) {
         ArrayList<String> comNames = new ArrayList<>();
-        String str = "\nCommunities in  " + dep + "\n" ;
-        for(int i =0; i< places.size(); i++){
-            if(places.get(i).getDepartment().equals(dep)){
-                if(!(comNames.contains(places.get(i).getComInfo()))){
+        String str = "\nCommunities in  " + dep + "\n";
+        for (int i = 0; i < places.size(); i++) {
+            if (places.get(i).getDepartment().equals(dep)) {
+                if (!(comNames.contains(places.get(i).getComInfo()))) {
                     comNames.add(places.get(i).getComInfo());
-                    str = str + "\nCommunity " + (comNames.size())+ "\n" + places.get(i).getComInfo();
+                    str = str + "\nCommunity " + (comNames.size()) + "\n" + places.get(i).getComInfo();
                 }
             }
 
         }
         return str;
-        
+
     }
 
-    
     /**
     * Method gets the information of communities with a same problematic 
     *@return str, type string
@@ -502,5 +513,4 @@ public class Controller {
             }
         }
         return str;
-    }
-}
+    }}

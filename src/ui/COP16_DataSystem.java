@@ -751,19 +751,11 @@ public class COP16_DataSystem {
             String nom = controller.coms.get(entry - 1).getName();
             boolean value = controller.hasProducts(nom);
             if (value) {
-                String[] comsNameStrings = new String[20];
-                comsNameStrings = controller.getProductsNames(nom);
                 System.out.println("\nModify Product: \n");
-                int z = 0;
-                for (int i = 0; i < 20; i++) {
-                    if (comsNameStrings[i] != null) {
-                        System.out.println("(" + (z + 1) + ") " + comsNameStrings[i] + "\n");
-                        z = z + 1;
-                    }
-                }
+                System.out.println(controller.getProductsNames(nom));
                 entry = sc.nextInt();
                 sc.nextLine();
-                String productName = comsNameStrings[entry - 1];
+                int productIndex = entry -1;
                 // show the values before asking if modifying
                 entry = askUserInput("\nEnter: \n1.To modify the natural percentaje \n2.Do not modify", 2);
                 double perNatural = -1;
@@ -803,7 +795,7 @@ public class COP16_DataSystem {
                         break;
                 }
 
-                controller.modifyProduct(nom, productName, perNatural, type, pHandmade);
+                controller.modifyProduct(nom, productIndex, perNatural, type, pHandmade);
 
                 System.out.println("\nProduct modified succesfully");
             } else {
@@ -829,15 +821,8 @@ public class COP16_DataSystem {
         String nom = controller.coms.get(entry - 1).getName();
         boolean value = controller.hasProducts(nom);
         if (value) {
-            String[] comsNameStrings = new String[20];
-            comsNameStrings = controller.getProductsNames(nom);
             System.out.println("\nDelete Product: \n");
-            for (int i = 0; i < 20; i++) {
-                if (comsNameStrings[i] != null) {
-                    System.out.println((i + 1) + ". " + comsNameStrings[i] + "\n");
-                }
-
-            }
+            System.out.println(controller.getProductsNames(nom));
             entry = sc.nextInt() - 1;
             sc.nextLine();
             controller.deleteProduct(nom, entry);
