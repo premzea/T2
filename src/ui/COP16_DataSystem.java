@@ -154,11 +154,15 @@ public class COP16_DataSystem {
         if (!(controller.hasCommunities())) {
             System.out.println("No communities created. Unable to consult unexisting community");
         } else {
-
             System.out.println();
             int entry = askUserInput("\nChoose problematic:  \n(1) Falta de Escuela \n(2) Falta de Hospital", 2);
             String problematic = entry == 1 ? "FALTA ESCUELA" : "FALTA HOSPITAL";
-            System.out.println(controller.comsbyProblem(problematic));
+            if(controller.comsbyProblem(problematic).equals("")){
+                System.out.println("No communitites with that problematic");
+            } else { 
+                System.out.println(controller.comsbyProblem(problematic));
+            }
+            
 
         }
     }
@@ -228,6 +232,7 @@ public class COP16_DataSystem {
         }
 
     }
+
 
     /**
      * Method allows you to consult the biggest places
