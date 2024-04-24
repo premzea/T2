@@ -23,37 +23,76 @@ public class Community{
     
     // }
 
+    /**
+     * Method is Constructor of the class
+     * @param pName, String
+     * @param pType, String
+     * @param pPopulation, int
+     *@param nameRep, String
+     *@param pPopulation, int
+     *@param cellphone, String
+     *@param problem, String
+     */
+
     public Community(String pName, String pType, int pPopulation, String nameRep, String cellphone, String problem){
         this.name = pName;
         this.type = stringToEnum(pType);
         this.population = pPopulation;
         this.rep = new Representative(nameRep, cellphone);
-        this.problem = stringToEnumProblem(problem);
+        this.problem = TypeProblem.valueOf(problem.toUpperCase());
     }
+
+    /**
+     * Method shows the attributes of community in a string format
+     *@return str, String
+     */
 
     public String toString(){
         return "Name: " + name + "\nType: " + type.name() + "\nPopulation: " + population + "\nName Representative: " + rep.getName() + "\nCellphone Representative: " + rep.getCellphone() + "\nProblematic: " + problem.name();
     }
 
+    /**
+     * Method gets the Representative from th attributes
+     *@return rep, type Representative
+     */
+
     public Representative getRepresentative(){
         return rep;
     }
 
-    public TypeProblem stringToEnumProblem(String problem){
-        return TypeProblem.valueOf(problem.toUpperCase());
-    }
+    // public TypeProblem stringToEnumProblem(String problem){
+    //     return TypeProblem.valueOf(problem.toUpperCase());
+    // }
 
-    public String enumToStringProblem(TypeProblem problem){
-        return problem.name().replace("_", " ");
-    }
+    // public String enumToStringProblem(TypeProblem problem){
+    //     return problem.name().replace("_", " ");
+    // }
+
+    /**
+     * Method gets the problem from the attributes
+     *@return problem, String 
+     */
 
     public String getProblem() {
         return problem.name().replace("_", " ");
     }
 
-    public void setProblem(TypeProblem problem) {
-        this.problem = problem;
-    }
+    /**
+     * Method shows the attributes of community in a string format
+     *@return str, String
+     */
+
+    // public void setProblem(TypeProblem problem) {
+    //     this.problem = problem;
+    // }
+
+    /**
+     * Method adds products to the product array
+     *@param pName, String
+     *@param perNatural, double
+     *@param pType, String
+     *@param pHandmade, boolean
+     */
 
     public void addProduct(String pName, double perNatural, String pType, boolean pHandmade){
         for (int i = 0; i< 20; i++){
@@ -64,9 +103,26 @@ public class Community{
         }
     }
 
-    public void modifyProduct(int index, String pName, double perNatural,String pType,boolean handmade){
+    public void modifyProduct(int indicator, String pName, double perNatural,String pType,boolean handmade){
+        int index = 0;
+        for (int z = 0; z < 20; z++) {
+            if (products[z].getName().equals(pName)) {
+                Product originalProduct = products[z];
+                if(perNatural == -1){
+                    perNatural = originalProduct.getperNatural();
+                }
+                if(pType == null){
+                    pType = originalProduct.getType().name();
+                } 
+                if(indicator == 1){
+                    handmade = originalProduct.getHandmade();
+                }
+                Product product = new Product(pName, perNatural, pType, handmade);
+                index = z;
+                z = 21;
+            }
         products[index] =  new Product(pName, perNatural, pType, handmade);
-    }
+    }}
 
     public String[] getProductNames(){
         String [] producName = new String[20];

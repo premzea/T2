@@ -1,42 +1,60 @@
 package model;
 
-public class Dates{
+public class MyDate {
 
     private int day;
     private int month;
     private int year;
 
-    public Dates(int day, int month,  int year){
+    /**
+     * Method is Constructor of the class
+     * @param day, int
+     * @param month, int
+     * @param year, int
+     */
+
+    public MyDate(int day, int month, int year) {
         this.day = day;
         this.month = month;
         this.year = year;
     }
+
+    /**
+     * Method gets day
+     * @return day, int
+     */
 
     public int getDay() {
         return day;
     }
 
-    public void setDay(int day) {
-        this.day = day;
-    }
+    
+    /**
+     * Method gets month
+     * @return month, int
+     */
 
     public int getMonth() {
         return month;
     }
 
-    public void setMonth(int month) {
-        this.month = month;
-    }
+    
+    /**
+     * Method gets year
+     * @return year, int
+     */
 
     public int getYear() {
         return year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
+    
+    /**
+     * Method shows MyDate attributes as string
+     * @return str, String
+     */
 
-    public String toString(){
+    public String toString() {
         return "\nDay: " + day + "\n Month: " + month + "\n Year: " + year + "\n";
     }
 }

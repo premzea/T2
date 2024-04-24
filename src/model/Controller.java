@@ -8,7 +8,7 @@ public class Controller {
     public ArrayList<Place> places;
 
     /**
-    * Method is the Construcor and initializes coms and places
+    * Method is the Constructor and initializes coms and places
     */
 
     public Controller(){
@@ -109,6 +109,12 @@ public class Controller {
 
     public void modifyProduct(String comNom, String pName, double perNatural, String pType, String pHandmade) {
         //if decided no to change, changes it to none and thats wrong baby girl
+        // for (int i = 0; i < places.size(); i++) {
+        //     if (places.get(i).getName().equals(nomPlace)) {
+        //         places.get(i).modifySpecies(name, pType, pNumber);
+        //     }
+        //     i = places.size() + 1;
+        // }
         int indicator = 0;
         if(pHandmade == null){
             indicator = 1;
@@ -117,23 +123,7 @@ public class Controller {
         //is there a way to do it without enetering products?
         for (int i = 0; i < coms.size(); i++) {
             if (coms.get(i).getName().equals(comNom)) {
-                for (int z = 0; z < 20; z++) {
-                    if (coms.get(i).getProductNames()[z].equals(pName)) {
-                        Product originalProduct = coms.get(i).getProducts()[z];
-                        if(perNatural == -1){
-                            perNatural = originalProduct.getperNatural();
-                        }
-                        if(pType == null){
-                            pType = originalProduct.getType().name();
-                        } 
-                        if(indicator == 1){
-                            handmade = originalProduct.getHandmade();
-                        }
-                        //more efficient way to do this?
-                        Product product = new Product(pName, perNatural, pType, handmade);
-                        coms.get(i).modifyProduct(z,pName, perNatural, pType, handmade);
-                        z = 21;
-                    }
+                    coms.get(i).modifyProduct(indicator,pName, perNatural, pType, pHandmade);
                     i = 100;
                 }
             }
@@ -206,16 +196,14 @@ public class Controller {
     */
 
     public boolean hasSpecies(String placeNom){
-        boolean value;
-        Species output = null;
+        boolean value = false;
         for (int i = 0; i < places.size(); i++) {
             if (places.get(i).getName().equals(placeNom)) {
-                output = places.get(i).getSpecies()[0];
+                value = places.get(i).hasSpecies();
                 i = 123;
             }
 
         }
-        value = output == null ? false : true;
         return value;
     }
 
@@ -258,22 +246,12 @@ public class Controller {
     public void modifySpecies(String nomPlace, String name, String pType, int pNumber){
         //cannot access 
         for (int i = 0; i < places.size(); i++) {
-            if (coms.get(i).getName().equals(nomPlace)) {
-                for (int z = 0; z < 15; z++) {
-                    if (places.get(i).getSpeciesNames()[z].equals(name)) {
-                        if(pType == null){
-                            pType = places.get(i).getSpecies()[z].getType().name();
-                        }
-                        if(pNumber == -1){
-                            pNumber = places.get(i).getSpecies()[z].getNumber();
-                        }
-                        places.get(i).modifySpecies(z, name, pType, pNumber);
-                        z = 15;
-                    }
-                    i = 100;
-                }
+            if (places.get(i).getName().equals(nomPlace)) {
+                places.get(i).modifySpecies(name, pType, pNumber);
             }
+            i = places.size() + 1;
         }
+        /////
     }
 
      /**
@@ -285,10 +263,8 @@ public class Controller {
             if (places.get(i).getName().equals(placeNom)) {
                 places.get(i).deleteSpecies(index);
                 i = 100;
-                // should i somehow delete the product and move the whole index or just leave
-                // the null?
             }
-
+            i =places.size() + 1;
         }
     }
 
@@ -301,9 +277,7 @@ public class Controller {
         boolean value = false;
         for(int i = 0; i<places.size(); i++){
             if(nom == places.get(i).getName()){
-                if(places.get(i).getSpecies()[14] == null){
-                    value = true;
-                }
+                places.get(i).canAddSpecies();
             }}
 
         return value;
