@@ -1021,6 +1021,9 @@ public class COP16_DataSystem {
     /**
      * Method ask the user an integer input, until its in an appropiate range of
      * answer
+     * @param question, String
+     * @param maxOption, int
+     * @return entry, type int 
      */
 
     public static int askUserInput(String question, int maxOption) {

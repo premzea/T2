@@ -27,8 +27,7 @@ public class Controller {
 
     /**
      * Method creates and array with all the places names
-     * 
-     * @return array, type ArrayList<String>
+     * @return array, type ArrayList
      */
 
     public ArrayList<String> placesToString() {
@@ -43,8 +42,7 @@ public class Controller {
 
     /**
      * Method creates and array with all the communities names
-     * 
-     * @return array, type ArrayList<String>
+     * @return array, type ArrayList
      */
 
     public ArrayList<String> comsToString() {
@@ -71,6 +69,12 @@ public class Controller {
 
     /**
      * Method creates and adds a Community to the coms array
+     * @param pName, String
+     * @param pType, String
+     * @param pPopulation, String
+     * @param nameRep, String
+     * @param cellphone, String
+     * @param problem, String
      */
 
     public void addCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone,
@@ -81,6 +85,15 @@ public class Controller {
 
     /**
      * Method creates and adds a Place to the places array
+     * @param pName, String
+     * @param pType, String
+     * @param pArea, double
+     * @param day, int
+     * @param month, int
+     * @param year, int
+     * @param indexCommunity, int
+     * @param department, String
+     * @param picPath, String
      */
 
     public void addPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCommunity,
@@ -91,10 +104,14 @@ public class Controller {
 
     /**
      * Method creates and adds a Product to a community from the coms array
+     * @param placeNom, String
+     * @param pName, String
+     * @param perNatural, double
+     * @param pType, String
+     * @param pHandmade, boolean
      */
 
     public void addProduct(String placeNom, String pName, double perNatural, String pType, boolean pHandmade) {
-        ////
         for (int i = 0; i < coms.size(); i++) {
             if (coms.get(i).getName() == placeNom) {
                 coms.get(i).addProduct(pName, perNatural, pType, pHandmade);
@@ -105,9 +122,14 @@ public class Controller {
 
     /**
      * Method modifies a community's product
+     * @param comNom, String
+     * @param index, int
+     * @param perNatural, double
+     * @param pType, String
+     * @param pHandmade, String
      */
 
-    public void modifyProduct(String comNom,int index, double perNatural, String pType, String pHandmade) {
+    public void modifyProduct(String comNom,int index, double perNatural, String pType, String pHandmade){
         int indicator = 0;
         if (pHandmade == null) {
             indicator = 1;
@@ -126,7 +148,7 @@ public class Controller {
 
     /**
      * Method creates a community's Product Names array
-     * 
+     * @param nomCom, String
      * @return procNames, type String[]
      */
 
@@ -143,7 +165,7 @@ public class Controller {
 
     /**
      * Method creates a places's Species Names array
-     * 
+     * @param nomCom, String
      * @return specNames, type String[]
      */
 
@@ -156,6 +178,12 @@ public class Controller {
         }
         return specNames;
     }
+
+    /**
+     * Method evaluates if places is empty
+     * @param placeNom, String
+     * @param index, int
+     */
 
     public void deleteProduct(String placeNom, int index) {
         for (int i = 0; i < coms.size(); i++) {
@@ -189,7 +217,7 @@ public class Controller {
 
     /**
      * Method evaluates if a place has species
-     * 
+     * @param placeNom, String
      * @return value, type boolean
      */
 
@@ -207,7 +235,7 @@ public class Controller {
 
     /**
      * Method evaluates if a community has prodcuts
-     * 
+      *@param comNom, String
      * @return value, type boolean
      */
 
@@ -226,6 +254,11 @@ public class Controller {
 
     /**
      * Method adds species to a place
+     * @param nomPlace, String
+     * @param name, String
+     * @param pType, String
+     * @param pNumber, int
+     * @param picPath, String
      */
 
     public void addSpecies(String nomPlace, String name, String pType, int pNumber, String picPath) {
@@ -238,6 +271,11 @@ public class Controller {
 
     /**
      * Method modifies a place's species
+     * @param nomPlace, String
+     * @param name, String
+     * @param pType, String
+     * @param pNumber, int
+     * @param picPath, String
      */
 
     public void modifySpecies(String nomPlace, String name, String pType, int pNumber, String picPath) {
@@ -253,6 +291,8 @@ public class Controller {
 
     /**
      * Method deletes a places species
+     * @param placeNom, String
+     * @param index, int
      */
 
     public void deleteSpecies(String placeNom, int index) {
@@ -267,7 +307,7 @@ public class Controller {
 
     /**
      * Method evaluates if a place can have more species
-     * 
+     * @param nom, String
      * @return value, type boolean
      */
 
@@ -284,7 +324,7 @@ public class Controller {
 
     /**
      * Method evaluates if a community can have more products
-     * 
+     * @param nom, String
      * @return value, type boolean
      */
 
@@ -301,6 +341,12 @@ public class Controller {
 
     /**
      * Method modifies a community from coms
+     * @param problem, String
+     * @param pName, String
+     * @param pPopulation, String
+     * @param nameRep, String
+     * @param cellphone, String
+     * @param pType, String
      */
 
     public void modifyCommunity(String pName, String pType, int pPopulation, String nameRep, String cellphone,
@@ -333,6 +379,15 @@ public class Controller {
 
     /**
      * Method modifies a place from places
+     * @param pName, String
+     * @param pType, String
+     * @param pArea, double
+     * @param day, int
+     * @param year, int
+     * @param indexCom, int
+     * @param department, String
+     * @param picPath, String
+     * @param month, String
      */
 
     public void modifyPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCom,
@@ -385,7 +440,7 @@ public class Controller {
     /**
      * Method checks if a new community's name is original by comparing it to the
      * names of communities in coms
-     * 
+     *@param nom, String
      * @return value, type boolean
      */
 
@@ -405,7 +460,7 @@ public class Controller {
     /**
      * Method checks if a new place's name is original by comparing it to the names
      * of places in places
-     * 
+     * @param nom, String
      * @return value, type boolean
      */
 
@@ -423,6 +478,7 @@ public class Controller {
 
     /**
      * Method deletes a community from coms
+     * @param nomCom, String
      */
 
     public void deleteCommunity(String nomCom) {
@@ -436,6 +492,7 @@ public class Controller {
 
     /**
      * Method deletes a place from places
+     * @param nomPlace, String
      */
 
     public void deletePlace(String nomPlace) {
@@ -484,7 +541,7 @@ public class Controller {
 
     /**
      * Method gets the names of the communities that live in a same department
-     * 
+     * @param dep, String
      * @return str, type string
      */
 
@@ -506,6 +563,7 @@ public class Controller {
 
     /**
     * Method gets the information of communities with a same problematic 
+    *@param problematic, String
     *@return str, type string
     */
 

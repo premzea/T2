@@ -106,7 +106,7 @@ public class Community {
     /**
      * Method adds products to the product array
      * 
-     * @param pName,      String
+     * @param pName, String
      * @param perNatural, double
      * @param pType,      String
      * @param pHandmade,  boolean
@@ -125,10 +125,10 @@ public class Community {
      * Method modifies products from the product array
      * 
      * @param indicator,  int
-     * @param pName,      String
+     * @param index,  int
      * @param perNatural, double
-     * @param pType,      String
-     * @param handmade,   boolean
+     * @param pType, String
+     * @param handmade, boolean
      */
 
     public void modifyProduct(int indicator, int index, double perNatural, String pType, boolean handmade) {
@@ -266,7 +266,7 @@ public class Community {
 
     /**
      * Method deletes a product from products
-     * @return value, boolean
+     * @param index, int
      */
 
     public void deleteProduct(int index) {
