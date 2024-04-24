@@ -18,8 +18,19 @@ public class Place{
     private Community community;
     private Species[] species = new Species[15];
     private Department department;
-    
 
+    /**
+    * Method is the Construcor
+    *@param pName, type String
+    *@param pType, type String
+    *@param pArea, type String
+    *@param day, type int
+    *@param month, type int
+    *@param year, type int
+    *@param pCommunity, type Community
+    *@param department, type String
+    */
+    
     public Place(String pName, String pType, double pArea, int day, int month, int year, Community pCommunity, String department){
         this.name = pName;
         this.type = TypePlace.valueOf(pType);
