@@ -556,8 +556,10 @@ public class COP16_DataSystem {
                 department = "Narino";
                 break;
         }
+        System.out.println("Picture Path: ");
+        String picPath = sc.nextLine();
 
-        controller.addPlace(nom, tipo, area, day, month, year, indexCom, department);
+        controller.addPlace(nom, tipo, area, day, month, year, indexCom, department, picPath);
 
         System.out.println("\nPlace added succesfully \n");
 
@@ -651,16 +653,23 @@ public class COP16_DataSystem {
                         break;
                 }
             }
+            entry = askUserInput("\nEnter: \n1.To modify place's picture path \n2.To not", 2);
+            String picPath = null;
+            if(entry ==1){
+                System.out.println("New Picture Path: ");
+                picPath = sc.nextLine();
+            }
 
-            controller.modifyPlace(nom, tipo, num, day, month, year, indexCom, department);
+
+            controller.modifyPlace(nom, tipo, num, day, month, year, indexCom, department, picPath);
             System.out.println("Place modified succesfully");
         }
 
     }
 
     /**
-    * Method deletes a Place
-    */
+     * Method deletes a Place
+     */
 
     public static void deletePlace() {
         if (!(controller.hasPlaces())) {
@@ -678,8 +687,8 @@ public class COP16_DataSystem {
     }
 
     /**
-     * Method shows  the menu options to modify products in the data base
-    */
+     * Method shows the menu options to modify products in the data base
+     */
 
     public static void productOperations() {
         int entry = askUserInput("\nProduct Menu \n(1) Enter Product \n(2) Modify Product \n(3) Eliminate Product\n",
@@ -700,8 +709,8 @@ public class COP16_DataSystem {
     }
 
     /**
-    * Method adds Product to a Community
-    */
+     * Method adds Product to a Community
+     */
 
     public static void addProduct() {
         if (!(controller.hasCommunities())) {
@@ -737,8 +746,8 @@ public class COP16_DataSystem {
     }
 
     /**
-    * Method modifies a community's product
-    */
+     * Method modifies a community's product
+     */
 
     public static void modifyProduct() {
         if (!(controller.hasCommunities())) {
@@ -755,7 +764,7 @@ public class COP16_DataSystem {
                 System.out.println(controller.getProductsNames(nom));
                 entry = sc.nextInt();
                 sc.nextLine();
-                int productIndex = entry -1;
+                int productIndex = entry - 1;
                 // show the values before asking if modifying
                 entry = askUserInput("\nEnter: \n1.To modify the natural percentaje \n2.Do not modify", 2);
                 double perNatural = -1;
@@ -807,8 +816,8 @@ public class COP16_DataSystem {
     }
 
     /**
-    * Method deletes Product of a Community
-    */
+     * Method deletes Product of a Community
+     */
 
     public static void deleteProduct() {
         if (!(controller.hasCommunities())) {
@@ -834,8 +843,8 @@ public class COP16_DataSystem {
     }
 
     /**
-    * Method shows the options to modify species in the data base
-    */
+     * Method shows the options to modify species in the data base
+     */
 
     public static void speciesOperations() {
         int entry = askUserInput("\nSpecies Menu \n(1) Enter Species \n(2) Modify Species \n(3) Eliminate Species\n",
@@ -856,8 +865,8 @@ public class COP16_DataSystem {
     }
 
     /**
-    * Method adds species to a place
-    */
+     * Method adds species to a place
+     */
 
     public static void addSpecies() {
         // String nomPlace, String name, String pType, int pNumber
@@ -879,7 +888,9 @@ public class COP16_DataSystem {
                 System.out.println("Number individuals: ");
                 int num = sc.nextInt();
                 sc.nextLine();
-                controller.addSpecies(nom, nomSpecies, tipo, num);
+                System.out.println("Picture Path: ");
+                String picPath = sc.nextLine();
+                controller.addSpecies(nom, nomSpecies, tipo, num, picPath);
                 System.out.println("\nSpecies added succesfully \n");
 
             } else {
@@ -947,7 +958,20 @@ public class COP16_DataSystem {
                         break;
                 }
 
-                controller.modifySpecies(nom, speciesName, type, num);
+                entry = askUserInput("\nEnter: \n1.To modify the picture path \n2.Do not modify", 2);
+                String picPath = null;
+                switch (entry) {
+                    case 1:
+                        System.out.println("\nNew Picture Path: ");
+                        picPath = sc.nextLine();
+                        sc.nextLine();
+
+                        break;
+
+                    default:
+                        break;}
+
+                controller.modifySpecies(nom, speciesName, type, num, picPath);
 
                 System.out.println("\nSpecies modified succesfully");
             } else {
@@ -959,8 +983,8 @@ public class COP16_DataSystem {
     }
 
     /**
-    * Method deletes a place's species
-    */
+     * Method deletes a place's species
+     */
 
     public static void deleteSpecies() {
         if (!(controller.hasPlaces())) {
@@ -995,8 +1019,9 @@ public class COP16_DataSystem {
     }
 
     /**
-    * Method ask the user an integer input, until its in an appropiate range of answer
-    */
+     * Method ask the user an integer input, until its in an appropiate range of
+     * answer
+     */
 
     public static int askUserInput(String question, int maxOption) {
         Scanner sc = new Scanner(System.in);
@@ -1011,6 +1036,5 @@ public class COP16_DataSystem {
         sc.nextLine();
         return entry;
     }
-
 
 }

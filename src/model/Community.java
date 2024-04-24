@@ -50,10 +50,20 @@ public class Community {
      */
 
     public String toString() {
-        return "Name: " + name + "\nType: " + type.name() + "\nPopulation: " + population + "\nName Representative: "
-                + rep.getName() + "\nCellphone Representative: " + rep.getCellphone() + "\nProblematic: "
-                + problem.name();
+        String str = "Name: " + name + "\nType: " + type.name() + "\nPopulation: " + population + "\nName Representative: "
+        + rep.getName() + "\nCellphone Representative: " + rep.getCellphone() + "\nProblematic: "
+        + problem.name();
+        if(hasProducts()){
+            str = str + "Products";
+            for(int i = 0; i< products.length ; i++){
+                if(products[i] != null){
+                    str = str + "Product " + (i+1) + "\n"  + products[i].toString();
+                }
+            }
+        }
+        return str;
     }
+    //add products to string
 
     /**
      * Method gets the Representative from th attributes

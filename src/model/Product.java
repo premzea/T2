@@ -1,60 +1,96 @@
 package model;
 
-
-public class Product{
+public class Product {
     private String name;
     private double perNatural;
     private TypeProduct type;
     private boolean handmade;
 
+    /**
+     * Method is Constructor of the class
+     * 
+     * @param pName, String
+     * @param perNatural, double
+     * @param pType, String
+     * @param pHandmade, boolean
+     * */
 
-    public Product(String pName, double perNatural, String pType, boolean pHandmade){
+    public Product(String pName, double perNatural, String pType, boolean pHandmade) {
         this.name = pName;
         this.perNatural = perNatural;
-        this.type = stringToEnum(pType);
+        this.type =TypeProduct.valueOf(pType.toUpperCase());;
         this.handmade = pHandmade;
     }
 
-    public String getName(){
+    /**
+     * Method gets the name
+     * 
+     * @return name, String
+     */
+
+    public String getName() {
         return name;
     }
 
-    
-    public TypeProduct getType(){
+    /**
+     * Method gets the type
+     * 
+     * @return type, TypeProduct
+     */
+
+    public TypeProduct getType() {
         return type;
     }
 
-    public double getperNatural(){
+    /**
+     * Method gets the percentaje of natural materials
+     * 
+     * @return perNatural, double
+     */
+
+    public double getperNatural() {
         return perNatural;
     }
 
+    /**
+     * Method gets the handmade value
+     * 
+     * @return handmade, boolean
+     */
 
-
-    public boolean getHandmade(){
+    public boolean getHandmade() {
         return handmade;
     }
 
-    public void setName(String pName){
-        this.name = pName;
+    /**
+     * Method shows the attributes of product in a string format
+     * 
+     * @return str, String
+     */
+
+    public String toString(){
+        return "\nName: " + name + "\nPercentaje of Natural Materials: " + perNatural + "\nType: " + type + "\nHandmade: " + handmade;
     }
 
-    public void setType(String pType){
-        // can i make a scanner here to put in the type or does it have to be in the ui?
-        this.type = stringToEnum(pType);
-    }
+    // public void setName(String pName) {
+    //     this.name = pName;
+    // }
 
+    // public void setType(String pType) {
+    //     // can i make a scanner here to put in the type or does it have to be in the ui?
+    //     this.type = stringToEnum(pType);
+    // }
 
+    // public void setHandmade(boolean pHandmade) {
+    //     this.handmade = pHandmade;
+    // }
 
-    public void setHandmade(boolean pHandmade){
-        this.handmade = pHandmade;
-    }
+    // public void setPerNatural(double pPerNatural) {
+    //     this.perNatural = pPerNatural;
+    // }
 
-    public void setPerNatural(double pPerNatural){
-        this.perNatural = pPerNatural;
-    }
-
-    public static TypeProduct stringToEnum(String tipo){
-        return TypeProduct.valueOf(tipo.toUpperCase());
-    }
+    // public static TypeProduct stringToEnum(String tipo) {
+    //     return TypeProduct.valueOf(tipo.toUpperCase());
+    // }
 
 }

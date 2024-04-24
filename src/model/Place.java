@@ -10,6 +10,7 @@ public class Place{
     private Community community;
     private Species[] species = new Species[15];
     private Department department;
+    private String picPath;
 
     /**
     * Method is the Construcor
@@ -21,16 +22,17 @@ public class Place{
     *@param year, type int
     *@param pCommunity, type Community
     *@param department, type String
+    *@param picPath, type String
     */
     
-    public Place(String pName, String pType, double pArea, int day, int month, int year, Community pCommunity, String department){
+    public Place(String pName, String pType, double pArea, int day, int month, int year, Community pCommunity, String department, String picPath){
         this.name = pName;
         this.type = TypePlace.valueOf(pType);
         this.area = pArea;
         this.community = pCommunity;
         this.openDate = new MyDate(day, month, year);
         this.department = Department.valueOf(department);
-        
+        this.picPath = picPath;
     }
 
     /**
@@ -39,8 +41,16 @@ public class Place{
     */
 
     public String toString(){
-        return "Name: " + name + "\nType: " + type.name().replace("_", " ") + "\nArea(km^2): " + area + "\nDate: " + openDate.toString() + "\nCommunity:" + community.toString() + "\nDepartment: " + department.name();
+        String str = "Name: " + name + "\nType: " + type.name().replace("_", " ") + "\nArea(km^2): " + area + "\nDate: " + openDate.toString() + "\nCommunity:" + community.toString() + "\nDepartment: " + department.name();
+        if(hasSpecies()){
+            str = str + "\nSpecies";
+            for(int i = 0; i< species.length; i++){
+                str = str + "\nSpecies" + (i+1) + "\n" + species[i].toString();
+            }
+        }
+        return str;
     }
+    
 
     /**
     * Method gets name from atrributes
@@ -49,7 +59,16 @@ public class Place{
     
     public String getName(){
         return name;
-    }       
+    }
+
+    /**
+    * Method gets picPath
+    *@return picPath, type String
+    */
+
+    public String getPicPath(){
+        return picPath;
+    }
 
     /**
     * Method gets type from attributes
@@ -192,12 +211,13 @@ public class Place{
     *@param name, String
     *@param pType, String
     *@param pNumber, int
+    *@param picPath, String
     */
 
-    public void addSpecies(String name, String pType, int pNumber){
+    public void addSpecies(String name, String pType, int pNumber, String picPath){
         for (int i = 0; i< 15; i++){
             if (species[i] == null){
-                species[i] = new Species(name, pType, pNumber);
+                species[i] = new Species(name, pType, picPath, pNumber);
                 i = 21;
             }
         }
@@ -224,9 +244,10 @@ public class Place{
     *@param name, String
     *@param pType, String
     *@param pNumber, int
+    *@param picPath, String
     */
 
-    public void modifySpecies(String name,String pType,int pNumber){
+    public void modifySpecies(String name,String pType,int pNumber, String picPath){
         //change to make object here
         int index = 0;
         for (int z = 0; z < 15; z++) {
@@ -237,12 +258,16 @@ public class Place{
                 if(pNumber == -1){
                     pNumber = species[z].getNumber();
                 }
+
+                if(picPath == null){
+                    picPath = species[z].getPicture();
+                }
                 index = z;
                 z = 15;
             }
             
         }
-        Species spec = new Species(name, pType, pNumber);
+        Species spec = new Species(name, pType, picPath, pNumber);
         species[index] =  spec;
     }
 

@@ -13,74 +13,79 @@ public class Species{
     private TypeSpecies type;
     private String picturePath;
     private int number;
+    private String picPath;
+
+    
+    /**
+    * Method is the Construcor
+    *@param pName, type String
+    *@param pType, type String
+    *@param pNumber, int
+    *@param pPicture, String
+    */
 
     public Species(String pName, String pType, String pPicture, int pNumber){
-        this.name = pName;
-        this.type = stringtoEnum(pType);
-        this.picturePath = pPicture;
-        this.number = pNumber;
+            this.name = pName;
+            this.type = TypeSpecies.valueOf(pType.toUpperCase());
+            this.picturePath = pPicture;
+            this.number = pNumber;
     }
 
-    public Species(String pName, String pType, int pNumber){
-        this.name = pName;
-        this.type = stringtoEnum(pType);
-        this.number = pNumber;
-    }
-
-    public String enumtoString(TypeSpecies type){
-        return type.name();
-    }
-
-    public TypeSpecies stringtoEnum(String type){
-        return TypeSpecies.valueOf(type.toUpperCase());
-    }
+    /**
+    * Method gets name from atrributes
+    *@return name, type String
+    */
 
     public String getName(){
         return name;
     }
+
+    /**
+    * Method gets type from atrributes
+    *@return name, type TypeSpecies
+    */
     
     public TypeSpecies getType(){
         return type;
     }
 
-    public void getPicture(){
-    BufferedImage image = null;
-    try {
-        image = ImageIO.read(new File(picturePath));
-        } catch (IOException e) {
-        // Handle image loading errors (e.g., display an error message)
-        System.err.println("Error loading image: " + e.getMessage());
-        };
+    /**
+    * Method gets the picture path from atrributes
+    *@return name, type String
+    */
 
-    if (image != null) {
-    JLabel imageLabel = new JLabel(new ImageIcon(image));
-    JFrame frame = new JFrame("Image Display");
-    frame.getContentPane().add(imageLabel);
-    frame.pack();
-    frame.setVisible(true);
+    public String getPicture(){
+        return picturePath;
     }
 
-    }
+    /**
+    * Method gets number of individuals from atrributes
+    *@return name, type String
+    */
 
     public int getNumber(){
         return number;
     }
 
-    public void setName(String pName){
-        this.name = pName;
+    public String toString(){
+        return "\nName: " + name + "\nType: " + type.name()  + "\nNumber of Individuals: " + number + "\nPicture Path: " +  picPath;
     }
 
-    public void setType(String pType){
-        this.type = stringtoEnum(pType);
-    }
+    // public void setName(String pName){
+    //     this.name = pName;
+    // }
 
-    public void setPicture(String pPicture){
-        this.picturePath = pPicture;
-    }
+    // public void setType(String pType){
+    //     this.type = stringtoEnum(pType);
+    // }
 
-    public void setNumber(int pNumber){
-        this.number = pNumber;
-    }
+    // public void setPicture(String pPicture){
+    //     this.picturePath = pPicture;
+    // }
+
+    // public void setNumber(int pNumber){
+    //     this.number = pNumber;
+    // }
 
 
 }

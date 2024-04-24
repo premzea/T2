@@ -84,8 +84,8 @@ public class Controller {
      */
 
     public void addPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCommunity,
-            String department) {
-        Place place = new Place(pName, pType, pArea, day, month, year, coms.get(indexCommunity), department);
+            String department, String picPath) {
+        Place place = new Place(pName, pType, pArea, day, month, year, coms.get(indexCommunity), department, picPath);
         places.add(place);
     }
 
@@ -228,10 +228,10 @@ public class Controller {
      * Method adds species to a place
      */
 
-    public void addSpecies(String nomPlace, String name, String pType, int pNumber) {
+    public void addSpecies(String nomPlace, String name, String pType, int pNumber, String picPath) {
         for (int i = 0; i < places.size(); i++) {
             if (nomPlace == places.get(i).getName()) {
-                places.get(i).addSpecies(name, pType, pNumber);
+                places.get(i).addSpecies(name, pType,pNumber, picPath);
             }
         }
     }
@@ -240,11 +240,11 @@ public class Controller {
      * Method modifies a place's species
      */
 
-    public void modifySpecies(String nomPlace, String name, String pType, int pNumber) {
+    public void modifySpecies(String nomPlace, String name, String pType, int pNumber, String picPath) {
         // cannot access
         for (int i = 0; i < places.size(); i++) {
             if (places.get(i).getName().equals(nomPlace)) {
-                places.get(i).modifySpecies(name, pType, pNumber);
+                places.get(i).modifySpecies(name, pType, pNumber, picPath);
             }
             i = places.size() + 1;
         }
@@ -336,7 +336,7 @@ public class Controller {
      */
 
     public void modifyPlace(String pName, String pType, double pArea, int day, int month, int year, int indexCom,
-            String department) {
+            String department, String picPath) {
         for (int i = 0; i < places.size(); i++) {
             if (places.get(i).equals(pName)) {
                 Place originalPlace = places.get(i);
@@ -366,11 +366,15 @@ public class Controller {
                     }
                 }
 
+                if(picPath == null){
+                    picPath = originalPlace.getPicPath();
+                }
+
                 Community com = coms.get(indexCom);
                 if (department == null) {
                     department = originalPlace.getDepartment();
                 }
-                Place place = new Place(pName, pType, pArea, day, month, year, com, department);
+                Place place = new Place(pName, pType, pArea, day, month, year, com, department, picPath);
                 places.remove(i);
                 places.add(i, place);
                 i = places.size() + 1;
